@@ -93,12 +93,30 @@ export function useProgress() {
     ? Math.max(...progress.exam.map(e => e.pct))
     : null;
 
+  // Per-chapter stats for weak area tracking
+  const chapterStats = {};
+  for (const k of mcKeys) {
+    const m = k.match(/^ch(\d+)_mc/);
+    if (m) {
+      const ch = m[1];
+      if (!chapterStats[ch]) chapterStats[ch] = { correct: 0, total: 0 };
+      chapterStats[ch].total++;
+      if (progress.mc[k].correct) chapterStats[ch].correct++;
+    }
+  }
+  // Sort by worst performance (lowest pct, min 2 attempts)
+  const weakChapters = Object.entries(chapterStats)
+    .filter(([, s]) => s.total >= 2)
+    .map(([ch, s]) => ({ ch, ...s, pct: Math.round((s.correct / s.total) * 100) }))
+    .sort((a, b) => a.pct - b.pct)
+    .slice(0, 3);
+
   return {
     progress,
     recordMC,
     recordSQ,
     recordExam,
     resetProgress,
-    stats: { mcCorrect, mcTotal, sqRevealed, examCount, bestExam },
+    stats: { mcCorrect, mcTotal, sqRevealed, examCount, bestExam, weakChapters },
   };
 }

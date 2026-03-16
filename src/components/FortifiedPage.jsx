@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FORT } from "../data/thematic.js";
-import { Quiz } from "./Detail.jsx";
+import { Quiz, MCQ } from "./Detail.jsx";
 import { PortChart, SherryChart } from "./Charts.jsx";
 
 export default function FortifiedPage(){const[tab,setTab]=useState("port");const[ss,setSs]=useState(-1);const F=FORT;const sec=F[tab];
@@ -21,5 +21,6 @@ return <div style={{animation:"fi .3s ease-out",overflowY:"auto",height:"calc(10
     {sec.traps?.length>0&&<div style={{marginTop:8}}><div style={{fontSize:9,letterSpacing:2,color:"#d04040",fontWeight:700,marginBottom:3}}>TRAPS</div>{sec.traps.map((t,i)=><div key={i} style={{borderLeft:"2px solid #d04040",padding:"3px 7px",marginBottom:2,background:"#fdf6f6",borderRadius:"0 3px 3px 0",fontSize:10.5,color:"#555"}}>⚠ {t}</div>)}</div>}
     {sec.quiz?.length>0&&<div style={{marginTop:8}}><div style={{fontSize:9,letterSpacing:2,color:"#b04040",fontWeight:700,marginBottom:3}}>QUIZ</div>{sec.quiz.map((q,i)=><Quiz key={i} q={q.q} a={q.a} n={i+1}/>)}</div>}
   </div>}
+  <div style={{padding:"6px 16px"}}><div style={{fontSize:9,letterSpacing:3,color:"#b04040",fontWeight:700,marginBottom:5}}>MULTIPLE CHOICE</div>{F.mc.map((q,i)=><MCQ key={i} q={q.q} o={q.o} a={q.a} e={q.e} n={i+1}/>)}</div>
   <div style={{padding:"6px 16px"}}><div style={{fontSize:9,letterSpacing:3,color:"#b04040",fontWeight:700,marginBottom:5}}>OVERALL</div>{F.quiz.map((q,i)=><Quiz key={i} q={q.q} a={q.a} n={i+1}/>)}</div>
 </div>}

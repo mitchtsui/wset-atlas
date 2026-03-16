@@ -1,4 +1,5 @@
 import { CONTS, byC } from "../data/countries.js";
+import { GUIDE } from "../data/guide.js";
 
 function ProgressWidget({ stats, onReset }) {
   if (!stats || (stats.mcTotal === 0 && stats.sqRevealed === 0 && stats.examCount === 0)) return null;
@@ -30,6 +31,17 @@ function ProgressWidget({ stats, onReset }) {
           <span style={{ color: "#b08020", fontWeight: 600 }}>Best: {stats.bestExam}%</span>
         </div>
       )}
+      {stats.weakChapters && stats.weakChapters.length > 0 && (
+        <div style={{ marginTop: 6, paddingTop: 6, borderTop: "1px solid #e8e4d0" }}>
+          <div style={{ fontSize: 9, letterSpacing: 1, color: "#c06040", fontWeight: 700, marginBottom: 4 }}>AREAS TO REVIEW</div>
+          {stats.weakChapters.map(w => (
+            <div key={w.ch} style={{ fontSize: 11, color: "#666", display: "flex", justifyContent: "space-between", padding: "2px 0" }}>
+              <span>{GUIDE[w.ch]?.name || `Ch ${w.ch}`}</span>
+              <span style={{ color: w.pct < 50 ? "#c03030" : "#b08020", fontWeight: 600 }}>{w.correct}/{w.total} ({w.pct}%)</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -42,7 +54,7 @@ export default function Home({ onGo, stats, onResetProgress }) {
         <h1 className="page-title">Wine Regions of the World</h1>
         <p className="page-subtitle">Interactive study atlas with detailed maps, geographic features, village markers, and exam prep. Tap a country to explore.</p>
         <div style={{ display: "flex", justifyContent: "center", gap: "clamp(12px,4vw,28px)", marginTop: 16, flexWrap: "wrap" }}>
-          {[{ n: "15", l: "Countries" }, { n: "70+", l: "Regions" }, { n: "150+", l: "Villages" }, { n: "230+", l: "Practice Q's" }].map(s =>
+          {[{ n: "15", l: "Countries" }, { n: "70+", l: "Regions" }, { n: "150+", l: "Villages" }, { n: "250+", l: "Practice Q's" }].map(s =>
             <div key={s.l}>
               <div style={{ fontSize: 20, fontWeight: 300, color: "#b08020" }}>{s.n}</div>
               <div style={{ fontSize: 8, letterSpacing: 2, color: "#bbb" }}>{s.l}</div>
@@ -73,6 +85,13 @@ export default function Home({ onGo, stats, onResetProgress }) {
               <div style={{ fontSize: 18, marginBottom: 2 }}>🎯</div>
               <b style={{ fontSize: 13, color: "#446" }}>Practice Exam</b>
               <div style={{ fontSize: 9, color: "#88a", marginTop: 1 }}>Timed · Randomised · All regions</div>
+            </div>
+          </div>
+          <div className="cc" onClick={() => onGo("compare")} style={{ background: "linear-gradient(135deg,#f0faf0,#fff)" }}>
+            <div style={{ padding: "12px 14px 10px" }}>
+              <div style={{ fontSize: 18, marginBottom: 2 }}>⚖️</div>
+              <b style={{ fontSize: 13, color: "#363" }}>Compare Regions</b>
+              <div style={{ fontSize: 9, color: "#8a8", marginTop: 1 }}>Side-by-side · Climate · Grapes · Soil</div>
             </div>
           </div>
         </div>

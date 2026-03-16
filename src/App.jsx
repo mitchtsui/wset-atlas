@@ -6,6 +6,7 @@ import Country from "./components/Country.jsx";
 import SparklingPage from "./components/SparklingPage.jsx";
 import FortifiedPage from "./components/FortifiedPage.jsx";
 import PracticeExam from "./components/PracticeExam.jsx";
+import ComparePage from "./components/ComparePage.jsx";
 import { useProgress } from "./hooks/useProgress.js";
 
 export default function App() {
@@ -13,8 +14,8 @@ export default function App() {
   const [sel, setSel] = useState(null);
   const { recordMC, recordSQ, recordExam, resetProgress, stats } = useProgress();
 
-  const c = pg !== "home" && pg !== "sparkling" && pg !== "fortified" && pg !== "exam" ? DATA[pg] : null;
-  const pgT = pg === "sparkling" ? "Sparkling Wines" : pg === "fortified" ? "Fortified Wines" : pg === "exam" ? "Practice Exam" : null;
+  const c = pg !== "home" && pg !== "sparkling" && pg !== "fortified" && pg !== "exam" && pg !== "compare" ? DATA[pg] : null;
+  const pgT = pg === "sparkling" ? "Sparkling Wines" : pg === "fortified" ? "Fortified Wines" : pg === "exam" ? "Practice Exam" : pg === "compare" ? "Compare Regions" : null;
 
   const goHome = () => { setPg("home"); setSel(null); };
 
@@ -26,7 +27,7 @@ export default function App() {
         {c && <><span style={{ color: "#ddd" }}>/</span><span style={{ color: "#333", fontSize: 13 }}>{c.name}</span>{sel && <><span style={{ color: "#ddd" }}>/</span><span style={{ color: c.color, fontSize: 12, fontWeight: 600, maxWidth: 120, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "inline-block", verticalAlign: "middle" }}>{sel.name}</span></>}</>}
         {pg !== "home" && <button onClick={goHome} className="back-btn" style={{ marginLeft: "auto" }} aria-label="Back to home">← Back</button>}
       </nav>
-      <main style={{ flex: 1, overflowY: pg === "home" || pg === "sparkling" || pg === "fortified" || pg === "exam" ? "auto" : "hidden" }} role="main">
+      <main style={{ flex: 1, overflowY: pg === "home" || pg === "sparkling" || pg === "fortified" || pg === "exam" || pg === "compare" ? "auto" : "hidden" }} role="main">
         <ErrorBoundary onReset={goHome}>
           {pg === "home" ? (
             <Home onGo={k => { setPg(k); setSel(null); }} stats={stats} onResetProgress={resetProgress} />
@@ -36,6 +37,8 @@ export default function App() {
             <FortifiedPage />
           ) : pg === "exam" ? (
             <PracticeExam onBack={goHome} onRecordExam={recordExam} />
+          ) : pg === "compare" ? (
+            <ComparePage onBack={goHome} />
           ) : (
             <Country ck={pg} c={c} sel={sel} onSel={setSel} onMC={recordMC} onSQ={recordSQ} />
           )}

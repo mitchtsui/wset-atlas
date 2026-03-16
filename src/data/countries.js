@@ -54,6 +54,9 @@ france:{
     {id:"sfrance",name:"Southern France",area:"M0.32,0.82 C0.42,0.8 0.58,0.8 0.68,0.82 L0.74,0.86 C0.76,0.9 0.72,0.94 0.64,0.96 L0.44,0.98 C0.36,0.98 0.3,0.94 0.3,0.88Z",cx:0.52,cy:0.9,
       villages:[{n:"Corbières",x:0.44,y:0.9},{n:"Bandol",x:0.68,y:0.86},{n:"Banyuls",x:0.5,y:0.96},{n:"Limoux",x:0.46,y:0.94},{n:"Provence",x:0.64,y:0.84}],
       grapes:{r:["Grenache","Syrah","Mourvèdre","Carignan"],w:["Mauzac","Vermentino"]},climate:"Mediterranean · Hot, dry",keyFact:"France's largest wine area · VDN = FORTIFIED sweet · Provence = pale rosé",trap:"VDN 'Naturel' = natural SUGAR, not method. Bandol = serious Mourvèdre reds (min 50%).",subs:["Languedoc","Roussillon","Provence","Bandol","Banyuls","Limoux"]},
+    {id:"champagne",name:"Champagne",area:"M0.4,0.04 L0.56,0.04 L0.6,0.1 L0.62,0.18 L0.58,0.22 L0.48,0.22 L0.42,0.18 L0.38,0.1Z",cx:0.5,cy:0.14,
+      villages:[{n:"Reims",x:0.52,y:0.1},{n:"Epernay",x:0.5,y:0.16},{n:"Ay",x:0.52,y:0.14}],
+      grapes:{r:["Pinot Noir","Meunier"],w:["Chardonnay"]},climate:"Cool continental · Marginal ripening · Chalk",keyFact:"3 grapes: Chardonnay (elegance), Pinot Noir (structure), Meunier (fruit). NV min 15mo lees. Vintage min 36mo.",trap:"NV minimum is 15 months on lees, NOT 12. Rose can be made by BLENDING red + white (unique in France).",subs:["Montagne de Reims","Cote des Blancs","Vallee de la Marne","Cote de Sezanne","Aube"]},
   ]
 },
 germany:{

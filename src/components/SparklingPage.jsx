@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SPARK } from "../data/thematic.js";
-import { Quiz } from "./Detail.jsx";
+import { Quiz, MCQ } from "./Detail.jsx";
 import { MethodChart } from "./Charts.jsx";
 
 function Row({label,val}){return <div style={{fontSize:12,color:"#555",marginBottom:4,lineHeight:"18px"}}><span style={{color:"#999",fontSize:9.5,letterSpacing:1,textTransform:"uppercase",fontWeight:700,fontFamily:"sans-serif"}}>{label}: </span>{val}</div>}
@@ -42,5 +42,6 @@ return <div style={{animation:"fi .3s ease-out",overflowY:"auto",height:"calc(10
       {o&&<div style={{padding:"0 11px 8px",borderTop:"1px solid #eee",marginTop:0}}><div style={{fontSize:11,color:"#555",marginTop:5}}><Row label="Grapes" val={w.g}/><Row label="Ageing" val={w.a}/><Row label="Style" val={w.s}/></div>
         {w.t&&<div style={{borderLeft:"3px solid #d04040",padding:"4px 8px",marginTop:5,background:"#fdf6f6",borderRadius:"0 4px 4px 0",fontSize:10.5,color:"#555"}}><b style={{color:"#c03030"}}>⚠</b> {w.t}</div>}</div>}</div>})}
   </div>
+  <div style={{padding:"6px 16px"}}><div style={{fontSize:9,letterSpacing:3,color:"#6898b8",fontWeight:700,marginBottom:5}}>MULTIPLE CHOICE</div>{S.mc.map((q,i)=><MCQ key={i} q={q.q} o={q.o} a={q.a} e={q.e} n={i+1}/>)}</div>
   <div style={{padding:"6px 16px"}}><div style={{fontSize:9,letterSpacing:3,color:"#6898b8",fontWeight:700,marginBottom:5}}>QUIZ</div>{S.quiz.map((q,i)=><Quiz key={i} q={q.q} a={q.a} n={i+1}/>)}</div>
 </div>}

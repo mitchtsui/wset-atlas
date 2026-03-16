@@ -155,3 +155,6 @@
   .exam-question-card{padding:14px 12px}
   .exam-option{padding:8px 10px;font-size:12px}
 }
+
+/* === REGION PREVIEW TAG === */
+.region-preview{font-size:9px;color:#999;background:#f4f2ec;padding:1px 7px;border-radius:8px;border:1px solid #eee}

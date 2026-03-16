@@ -10,9 +10,9 @@ function Info({color,label,text}){return <div style={{borderLeft:`3px solid ${co
 </div>}
 
 
-export function Quiz({q,a,n,onReveal}){const[s,setS]=useState(false);const doReveal=()=>{setS(true);if(onReveal)onReveal();};return <div style={{padding:"8px 12px",marginBottom:6,background:"#f8f6f0",borderRadius:6,border:"1px solid #e8e4d8"}}>
+export function Quiz({q,a,n,onReveal,pts}){const[s,setS]=useState(false);const doReveal=()=>{setS(true);if(onReveal)onReveal();};return <div style={{padding:"8px 12px",marginBottom:6,background:"#f8f6f0",borderRadius:6,border:"1px solid #e8e4d8"}}>
   <div style={{fontSize:12,color:"#444",marginBottom:4}}><b style={{color:"#888"}}>Q{n}:</b> {q}</div>
-  {s?<div style={{fontSize:12,color:"#308040",fontWeight:600}}>✓ {a}</div>:<button onClick={doReveal} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();doReveal();}}} aria-label={`Reveal answer for question ${n}`} style={{background:"#e8e4d8",border:"none",color:"#666",padding:"3px 12px",borderRadius:4,fontSize:11,cursor:"pointer"}}>Reveal</button>}
+  {s?<div><div style={{fontSize:12,color:"#308040",fontWeight:600}}>✓ {a}</div>{pts&&pts.length>0&&<div style={{marginTop:4,padding:"4px 8px",background:"#e8f0e8",borderRadius:4,fontSize:10,color:"#336"}}><b style={{color:"#308040",fontSize:9}}>KEY POINTS: </b>{pts.map((p,i)=><span key={i} style={{display:"inline-block",background:"#fff",border:"1px solid #c8e0c8",borderRadius:3,padding:"1px 6px",margin:"1px 2px",fontSize:9.5,color:"#446"}}>{p}</span>)}</div>}</div>:<button onClick={doReveal} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();doReveal();}}} aria-label={`Reveal answer for question ${n}`} style={{background:"#e8e4d8",border:"none",color:"#666",padding:"3px 12px",borderRadius:4,fontSize:11,cursor:"pointer"}}>Reveal</button>}
 </div>}
 
 
@@ -91,6 +91,7 @@ function SubMap({ regionId, selVillage, onSelVillage }) {
 }
 
 function VillageCard({ v }) {
+  const hasDetail = v.gr || v.cl || v.style || v.soil;
   return (
     <div style={{background:"#fff",border:`1px solid ${v.col}40`,borderLeft:`4px solid ${v.col}`,borderRadius:"0 8px 8px 0",padding:"12px 14px",marginBottom:10,animation:"fi .2s ease-out"}}>
       <div style={{fontWeight:700,fontSize:15,color:"#333",marginBottom:6}}>{v.n}</div>
@@ -98,6 +99,7 @@ function VillageCard({ v }) {
       {v.cl&&<Row label="Classification" val={v.cl}/>}
       {v.style&&<Row label="Style" val={v.style}/>}
       {v.soil&&<Row label="Soil" val={v.soil}/>}
+      {!hasDetail&&<div style={{fontSize:11,color:"#aaa",fontStyle:"italic"}}>Appellation within the region map. Refer to Climate & Conditions above for details.</div>}
     </div>
   );
 }
@@ -134,6 +136,62 @@ function GermanSweetnessChart(){
     </div>
     <div style={{background:'#fdf6f6',padding:'5px 10px',borderTop:'1px solid #e0dcd0'}}>
       <b style={{color:'#b03030',fontSize:9}}>⚠ EXAM TRAP:</b> <span style={{fontSize:10,color:'#555'}}>Prädikat = ripeness at HARVEST, not sweetness. Kabinett/Spätlese/Auslese CAN be dry (trocken). Only BA, TBA & Eiswein are always sweet.</span>
+    </div>
+  </div>;
+}
+
+function AlsaceVTChart(){
+  const levels=[
+    {n:'Grand Cru',grapes:'4 noble only',sweet:'Dry',desc:'51 named vineyards. Riesling, Gewurz, Pinot Gris, Muscat only',col:'#e8f0e8'},
+    {n:'Vendange Tardive (VT)',grapes:'4 noble only',sweet:'Dry OR Sweet',desc:'Late harvest. NOT required to be sweet. Style varies by producer and vintage',col:'#f0e8c0'},
+    {n:'SGN',grapes:'4 noble only',sweet:'ALWAYS Sweet',desc:'Selection de Grains Nobles. Botrytis-affected berries. Rich, luscious, rare',col:'#e8b060'},
+  ];
+  return <div style={{border:'1px solid #e0dcd0',borderRadius:6,overflow:'hidden',marginBottom:10}}>
+    <div style={{background:'#f8f6f0',padding:'6px 10px',borderBottom:'1px solid #e0dcd0'}}>
+      <b style={{fontSize:10,color:'#333',letterSpacing:1}}>ALSACE QUALITY PYRAMID</b>
+      <span style={{fontSize:9,color:'#999',marginLeft:8}}>(4 noble grapes = Riesling, Gewurztraminer, Pinot Gris, Muscat)</span>
+    </div>
+    <div style={{fontSize:10.5}}>
+      <div style={{display:'grid',gridTemplateColumns:'110px 85px 100px 1fr',background:'#f0ece0',fontWeight:700,color:'#555',fontSize:9}}>
+        {['Level','Grapes','Sweetness','Notes'].map(h=><div key={h} style={{padding:'4px 8px',borderBottom:'1px solid #e0dcd0'}}>{h}</div>)}
+      </div>
+      {levels.map((l,i)=><div key={i} style={{display:'grid',gridTemplateColumns:'110px 85px 100px 1fr',borderBottom:i<2?'1px solid #eee':'none',background:l.col}}>
+        <div style={{padding:'4px 8px',fontWeight:600,color:'#333'}}>{l.n}</div>
+        <div style={{padding:'4px 8px',color:'#666',fontSize:10}}>{l.grapes}</div>
+        <div style={{padding:'4px 8px',color:l.sweet.includes('ALWAYS')?'#b03030':'#555',fontWeight:l.sweet.includes('ALWAYS')?700:400}}>{l.sweet}</div>
+        <div style={{padding:'4px 8px',color:'#666',fontSize:10}}>{l.desc}</div>
+      </div>)}
+    </div>
+    <div style={{background:'#fdf6f6',padding:'5px 10px',borderTop:'1px solid #e0dcd0'}}>
+      <b style={{color:'#b03030',fontSize:9}}>⚠ EXAM TRAP:</b> <span style={{fontSize:10,color:'#555'}}>VT = minimum sugar at HARVEST, not final sweetness. VT CAN be dry. Only SGN is always sweet (requires botrytis). Pinot Blanc & Sylvaner NOT permitted.</span>
+    </div>
+  </div>;
+}
+
+function WachauChart(){
+  const levels=[
+    {n:'Steinfeder',abv:'Up to 11.5%',body:'Lightest',desc:'Named after local grass. Delicate, fresh, light',col:'#e8f5e8'},
+    {n:'Federspiel',abv:'11.5-12.5%',body:'Medium',desc:'Named after falconry. Classic, balanced, moderate body',col:'#d4ecd4'},
+    {n:'Smaragd',abv:'12.5%+',body:'Fullest',desc:'Named after emerald lizard. Powerful, concentrated, age-worthy',col:'#f0e8c0'},
+  ];
+  return <div style={{border:'1px solid #e0dcd0',borderRadius:6,overflow:'hidden',marginBottom:10}}>
+    <div style={{background:'#f8f6f0',padding:'6px 10px',borderBottom:'1px solid #e0dcd0'}}>
+      <b style={{fontSize:10,color:'#333',letterSpacing:1}}>WACHAU CLASSIFICATION</b>
+      <span style={{fontSize:9,color:'#999',marginLeft:8}}>(NOT part of DAC — Wachau's own voluntary system)</span>
+    </div>
+    <div style={{fontSize:10.5}}>
+      <div style={{display:'grid',gridTemplateColumns:'100px 90px 70px 1fr',background:'#f0ece0',fontWeight:700,color:'#555',fontSize:9}}>
+        {['Level','ABV','Body','Notes'].map(h=><div key={h} style={{padding:'4px 8px',borderBottom:'1px solid #e0dcd0'}}>{h}</div>)}
+      </div>
+      {levels.map((l,i)=><div key={i} style={{display:'grid',gridTemplateColumns:'100px 90px 70px 1fr',borderBottom:i<2?'1px solid #eee':'none',background:l.col}}>
+        <div style={{padding:'4px 8px',fontWeight:600,color:'#333'}}>{l.n}</div>
+        <div style={{padding:'4px 8px',color:'#666'}}>{l.abv}</div>
+        <div style={{padding:'4px 8px',color:'#555',fontWeight:600}}>{l.body}</div>
+        <div style={{padding:'4px 8px',color:'#666',fontSize:10}}>{l.desc}</div>
+      </div>)}
+    </div>
+    <div style={{background:'#fdf6f6',padding:'5px 10px',borderTop:'1px solid #e0dcd0'}}>
+      <b style={{color:'#b03030',fontSize:9}}>⚠ EXAM TRAP:</b> <span style={{fontSize:10,color:'#555'}}>Wachau is NOT part of DAC. Gruner Veltliner and Riesling are the main grapes. Classification is by ABV/body, not vineyard quality.</span>
     </div>
   </div>;
 }
@@ -223,6 +281,20 @@ export default function Detail({r,c,onClose,onMC,onSQ}){
       {/* Key Fact */}
       <Info color="#b08020" label="Key Fact" text={r.keyFact} />
 
+      {/* Key Wines Table */}
+      {gd?.keyWines?.length > 0 && <Sec l="Key Wines & Styles" i="🏷">
+        <div style={{border:"1px solid #e8e4d0",borderRadius:6,overflow:"hidden"}}>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1.5fr",background:"#f8f6ee",fontWeight:700,color:"#555",fontSize:9}}>
+            {["Wine/DOCG","Grape","Style / Notes"].map(h=><div key={h} style={{padding:"5px 8px",borderBottom:"1px solid #e0dcd0"}}>{h}</div>)}
+          </div>
+          {gd.keyWines.map((w,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"1fr 1fr 1.5fr",borderBottom:i<gd.keyWines.length-1?"1px solid #eee":"none",background:i%2?"#fdfcf8":"#fff"}}>
+            <div style={{padding:"4px 8px",fontWeight:600,color:"#444",fontSize:11}}>{w.wine}</div>
+            <div style={{padding:"4px 8px",color:"#666",fontSize:10.5}}>{w.grape}</div>
+            <div style={{padding:"4px 8px",color:"#666",fontSize:10.5}}>{w.style}</div>
+          </div>)}
+        </div>
+      </Sec>}
+
       {/* Exam Traps — all from guide */}
       {traps.length > 0 ? (
         <Sec l="Common Mistakes & Exam Traps" i="⚠">
@@ -248,6 +320,12 @@ export default function Detail({r,c,onClose,onMC,onSQ}){
       {/* German Sweetness Chart */}
       {gd?.name?.includes("Germany") && <Sec l="Prädikat Sweetness Levels" i="📊"><GermanSweetnessChart/></Sec>}
 
+      {/* Alsace VT/SGN Chart */}
+      {gd?.vtSgnChart && <Sec l="Alsace Quality & Sweetness Levels" i="📊"><AlsaceVTChart/></Sec>}
+
+      {/* Wachau Classification Chart */}
+      {gd?.wachauChart && <Sec l="Wachau Classification" i="📊"><WachauChart/></Sec>}
+
       {/* Multiple Choice Questions */}
       {gd?.mc?.length > 0 && <Sec l="Multiple Choice Practice" i="📝">
         {gd.mc.map((q,i) => <MCQ key={i} q={q.q} o={q.o} a={q.a} e={q.e} n={i+1} onAnswer={onMC ? (correct) => onMC(gNum, i, correct) : undefined} />)}
@@ -255,7 +333,7 @@ export default function Detail({r,c,onClose,onMC,onSQ}){
 
       {/* Short Answer Questions */}
       {gd?.sq?.length > 0 && <Sec l="Short Answer Questions" i="✍️">
-        {gd.sq.map((q,i) => <Quiz key={i} q={q.q} a={q.a} n={i+1} onReveal={onSQ ? () => onSQ(gNum, i) : undefined} />)}
+        {gd.sq.map((q,i) => <Quiz key={i} q={q.q} a={q.a} n={i+1} pts={q.pts} onReveal={onSQ ? () => onSQ(gNum, i) : undefined} />)}
       </Sec>}
     </div>
   </div>;
