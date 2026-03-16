@@ -1,0 +1,223 @@
+// Country-level map data
+export const RC = [
+  "#e6c840","#d4845a","#7ab86e","#6aaad4","#d46a8c",
+  "#b8a0d4","#d4a44a","#85c4a8","#c47070","#a0b868",
+  "#d49070","#80b0d0","#c8a060","#70b8b0","#d08888",
+];
+export const rc = (i) => RC[i % RC.length];
+
+export const DATA = {
+france:{
+  name:"France",color:"#c04050",
+  continent:"Europe",
+  neighbors:[{name:"SPAIN",x:0.35,y:0.97},{name:"SWITZERLAND",x:0.88,y:0.42},{name:"GERMANY",x:0.9,y:0.15},{name:"BELGIUM",x:0.5,y:0.02},{name:"ITALY",x:0.92,y:0.6}],
+  cities:[{n:"Paris",x:0.45,y:0.22},{n:"Lyon",x:0.62,y:0.5},{n:"Marseille",x:0.65,y:0.82},{n:"Strasbourg",x:0.88,y:0.18},{n:"Nantes",x:0.1,y:0.4},{n:"Toulouse",x:0.38,y:0.85}],
+  border:"M0.15,0.06 C0.25,0.02 0.4,0 0.55,0.04 L0.72,0.04 C0.8,0.06 0.88,0.1 0.92,0.16 L0.95,0.25 C0.96,0.32 0.94,0.38 0.9,0.42 L0.86,0.48 C0.88,0.54 0.86,0.6 0.82,0.64 L0.78,0.72 C0.75,0.78 0.7,0.84 0.62,0.9 L0.55,0.95 C0.48,0.98 0.4,1 0.32,0.98 L0.22,0.94 C0.16,0.9 0.1,0.86 0.08,0.8 L0.04,0.72 C0.02,0.64 0,0.56 0,0.48 L0.02,0.38 C0.04,0.3 0.06,0.22 0.1,0.14Z",
+  rivers:[
+    {name:"R. Loire",pts:[[0.04,0.42],[0.15,0.38],[0.28,0.36],[0.38,0.38],[0.48,0.4],[0.55,0.38]]},
+    {name:"R. Rhône",pts:[[0.72,0.3],[0.68,0.42],[0.66,0.52],[0.67,0.6],[0.68,0.68],[0.7,0.76]]},
+    {name:"R. Garonne",pts:[[0.38,0.82],[0.28,0.74],[0.2,0.7],[0.12,0.68]]},
+    {name:"R. Dordogne",pts:[[0.42,0.72],[0.32,0.7],[0.22,0.68],[0.14,0.66]]},
+    {name:"R. Saône",pts:[[0.64,0.26],[0.63,0.34],[0.62,0.42]]},
+  ],
+  mountains:[
+    {name:"Vosges",pts:[[0.84,0.16],[0.86,0.22],[0.87,0.28]]},
+    {name:"Alps",pts:[[0.84,0.36],[0.88,0.44],[0.9,0.52]]},
+    {name:"Massif Central",pts:[[0.48,0.54],[0.54,0.6],[0.52,0.66]]},
+    {name:"Pyrenees",pts:[[0.22,0.94],[0.35,0.96],[0.5,0.95]]},
+  ],
+  regions:[
+    {id:"bordeaux",name:"Bordeaux",area:"M0.08,0.6 L0.2,0.58 L0.24,0.64 L0.22,0.72 L0.18,0.78 L0.08,0.76 L0.04,0.7Z",cx:0.14,cy:0.68,
+      villages:[{n:"Pauillac",x:0.1,y:0.62},{n:"Saint-Émilion",x:0.2,y:0.66},{n:"Pomerol",x:0.19,y:0.64},{n:"Margaux",x:0.11,y:0.65},{n:"Sauternes",x:0.13,y:0.74},{n:"Pessac-Léognan",x:0.14,y:0.7}],
+      grapes:{r:["Cabernet Sauvignon","Merlot","Cabernet Franc"],w:["Sauvignon Blanc","Sémillon"]},climate:"Maritime · Atlantic + Gironde estuary · Landes forest shelters from wind",keyFact:"Left Bank = Cab Sauv on gravel · Right Bank = Merlot on clay/limestone · 3 classification systems (1855, Graves 1959, Saint-Émilion revised)",trap:"Entre-Deux-Mers AOC = dry WHITE only. Pomerol has NO classification. Haut-Brion = only non-Médoc in 1855.",subs:["Haut-Médoc","Pauillac","Saint-Julien","Margaux","Saint-Estèphe","Saint-Émilion","Pomerol","Sauternes & Barsac","Pessac-Léognan","Graves","Entre-Deux-Mers"]},
+    {id:"sw",name:"South West",area:"M0.24,0.76 L0.38,0.74 L0.42,0.82 L0.38,0.9 L0.26,0.88 L0.22,0.82Z",cx:0.32,cy:0.82,
+      villages:[{n:"Cahors",x:0.34,y:0.78},{n:"Madiran",x:0.28,y:0.86},{n:"Jurançon",x:0.26,y:0.9},{n:"Bergerac",x:0.28,y:0.74}],
+      grapes:{r:["Malbec (Cot)","Tannat"],w:["Gros Manseng","Petit Manseng"]},climate:"Transitional maritime → continental inland",keyFact:"Cahors = Malbec min 70% · Madiran = Tannat, micro-oxygenation pioneer · Jurançon sweet = passerillage",trap:"Jurançon sweet = passerillage (drying ON vine), NOT botrytis.",subs:["Cahors","Madiran","Jurançon","Bergerac","Monbazillac"]},
+    {id:"burgundy",name:"Burgundy",area:"M0.57,0.28 L0.67,0.28 L0.68,0.36 L0.67,0.44 L0.63,0.48 L0.57,0.44 L0.55,0.36Z",cx:0.62,cy:0.38,
+      villages:[{n:"Chablis",x:0.57,y:0.3},{n:"Côte de Nuits",x:0.65,y:0.36},{n:"Côte de Beaune",x:0.64,y:0.4},{n:"Côte Chalonnaise",x:0.63,y:0.43},{n:"Mâconnais",x:0.6,y:0.47}],
+      grapes:{r:["Pinot Noir"],w:["Chardonnay","Aligoté"]},climate:"Continental · East-facing Côte d'Or slopes",keyFact:"Single-variety wines · 4-tier: Regional < Village < 1er Cru < Grand Cru · Kimmeridgian limestone (Chablis)",trap:"Pouilly-Fuissé (Burgundy/Chardonnay) ≠ Pouilly-Fumé (Loire/Sauvignon Blanc). Corton = only red Grand Cru in Côte de Beaune.",subs:["Chablis","Côte de Nuits","Côte de Beaune","Côte Chalonnaise","Mâconnais"]},
+    {id:"beaujolais",name:"Beaujolais",area:"M0.56,0.48 L0.64,0.48 L0.65,0.52 L0.62,0.56 L0.56,0.55Z",cx:0.6,cy:0.52,
+      villages:[{n:"Morgon",x:0.58,y:0.5},{n:"Fleurie",x:0.6,y:0.49},{n:"Moulin-à-Vent",x:0.57,y:0.49},{n:"Brouilly",x:0.61,y:0.53}],
+      grapes:{r:["Gamay"],w:[]},climate:"Continental · Granite (north), clay (south)",keyFact:"10 Crus · Carbonic maceration · Cru labels don't say 'Beaujolais'",trap:"Cru labels show ONLY village name. Crus can be serious & age-worthy.",subs:["10 Cru Beaujolais"]},
+    {id:"alsace",name:"Alsace",area:"M0.84,0.13 L0.9,0.13 L0.92,0.2 L0.91,0.28 L0.87,0.3 L0.83,0.26 L0.82,0.18Z",cx:0.87,cy:0.22,
+      villages:[{n:"Colmar",x:0.87,y:0.24},{n:"Riquewihr",x:0.86,y:0.22}],
+      grapes:{r:["Pinot Noir"],w:["Riesling","Gewürztraminer","Pinot Gris","Muscat"]},climate:"Continental, DRY · Vosges rain shadow",keyFact:"4 noble grapes for Grand Cru/VT/SGN · Varietal labelling · 51 Grand Crus",trap:"VT can be DRY or sweet. SGN = always sweet. Pinot Blanc NOT for Grand Cru.",subs:["51 Grand Cru vineyards","Crémant d'Alsace"]},
+    {id:"loire",name:"Loire Valley",area:"M0.04,0.4 C0.12,0.34 0.24,0.32 0.36,0.34 L0.5,0.36 L0.56,0.38 L0.56,0.43 C0.48,0.45 0.35,0.46 0.2,0.46 L0.06,0.45Z",cx:0.3,cy:0.4,
+      villages:[{n:"Muscadet",x:0.08,y:0.42},{n:"Anjou",x:0.18,y:0.4},{n:"Vouvray",x:0.32,y:0.38},{n:"Chinon",x:0.3,y:0.42},{n:"Sancerre",x:0.52,y:0.38},{n:"Pouilly-Fumé",x:0.54,y:0.4}],
+      grapes:{r:["Cabernet Franc","Pinot Noir"],w:["Sauvignon Blanc","Chenin Blanc","Melon de Bourgogne"]},climate:"Maritime (west) → continental (east)",keyFact:"Muscadet = Melon de Bourgogne · Chenin = dry/sweet/sparkling · Sur lie",trap:"Savennières = DRY Chenin. Sancerre can be RED (Pinot Noir).",subs:["Muscadet","Anjou-Saumur","Vouvray","Chinon","Sancerre","Pouilly-Fumé"]},
+    {id:"nrhone",name:"N. Rhône",area:"M0.64,0.5 L0.71,0.5 L0.72,0.56 L0.72,0.62 L0.68,0.64 L0.63,0.62 L0.62,0.55Z",cx:0.67,cy:0.57,
+      villages:[{n:"Côte-Rôtie",x:0.65,y:0.51},{n:"Condrieu",x:0.65,y:0.53},{n:"Hermitage",x:0.69,y:0.56},{n:"Crozes-Hermitage",x:0.71,y:0.57},{n:"Cornas",x:0.67,y:0.6}],
+      grapes:{r:["Syrah"],w:["Viognier","Marsanne","Roussanne"]},climate:"Continental + Mediterranean · Steep terraces · Mistral",keyFact:"Syrah = ONLY red grape · Côte-Rôtie: up to 20% Viognier co-fermented",trap:"Cornas = 100% Syrah, red only. Crozes-Hermitage ≠ sub-zone of Hermitage.",subs:["Côte-Rôtie","Condrieu","Hermitage","Crozes-Hermitage","Saint-Joseph","Cornas"]},
+    {id:"srhone",name:"S. Rhône",area:"M0.62,0.64 L0.76,0.64 L0.78,0.72 L0.74,0.78 L0.64,0.76 L0.6,0.7Z",cx:0.69,cy:0.71,
+      villages:[{n:"Châteauneuf-du-Pape",x:0.68,y:0.7},{n:"Gigondas",x:0.72,y:0.68},{n:"Tavel",x:0.65,y:0.72}],
+      grapes:{r:["Grenache","Syrah","Mourvèdre"],w:[]},climate:"Mediterranean · Hot, dry · Mistral",keyFact:"CdP: 13 varieties, galets roulés · Tavel = rosé ONLY",trap:"N. Rhône = Syrah. S. Rhône = Grenache. Tavel = only French AOC exclusively for rosé.",subs:["Châteauneuf-du-Pape","Gigondas","Vacqueyras","Tavel"]},
+    {id:"sfrance",name:"Southern France",area:"M0.32,0.82 C0.42,0.8 0.58,0.8 0.68,0.82 L0.74,0.86 C0.76,0.9 0.72,0.94 0.64,0.96 L0.44,0.98 C0.36,0.98 0.3,0.94 0.3,0.88Z",cx:0.52,cy:0.9,
+      villages:[{n:"Corbières",x:0.44,y:0.9},{n:"Bandol",x:0.68,y:0.86},{n:"Banyuls",x:0.5,y:0.96},{n:"Limoux",x:0.46,y:0.94},{n:"Provence",x:0.64,y:0.84}],
+      grapes:{r:["Grenache","Syrah","Mourvèdre","Carignan"],w:["Mauzac","Vermentino"]},climate:"Mediterranean · Hot, dry",keyFact:"France's largest wine area · VDN = FORTIFIED sweet · Provence = pale rosé",trap:"VDN 'Naturel' = natural SUGAR, not method. Bandol = serious Mourvèdre reds (min 50%).",subs:["Languedoc","Roussillon","Provence","Bandol","Banyuls","Limoux"]},
+  ]
+},
+germany:{
+  name:"Germany",color:"#5a8a3a",continent:"Europe",
+  neighbors:[{name:"FRANCE",x:0.05,y:0.82},{name:"SWITZERLAND",x:0.3,y:0.98},{name:"AUSTRIA",x:0.85,y:0.98},{name:"BELGIUM",x:0.02,y:0.42},{name:"LUX.",x:0.02,y:0.58}],
+  cities:[{n:"Frankfurt",x:0.52,y:0.48},{n:"Mannheim",x:0.38,y:0.62},{n:"Colmar",x:0.15,y:0.92}],
+  border:"M0.2,0 C0.35,0 0.55,0 0.7,0.04 L0.85,0.1 C0.92,0.16 0.98,0.24 1,0.34 L0.98,0.48 C0.95,0.58 0.9,0.66 0.84,0.72 L0.78,0.8 C0.7,0.88 0.6,0.94 0.48,0.98 L0.34,1 C0.24,0.98 0.16,0.92 0.1,0.84 L0.04,0.72 C0,0.6 0,0.48 0.02,0.36 L0.06,0.24 C0.1,0.14 0.14,0.06 0.2,0Z",
+  rivers:[
+    {name:"R. Rhine",pts:[[0.25,0.95],[0.28,0.85],[0.3,0.75],[0.35,0.65],[0.38,0.55],[0.36,0.45],[0.32,0.35],[0.3,0.25],[0.28,0.15],[0.26,0.05]]},
+    {name:"R. Mosel",pts:[[0.04,0.6],[0.08,0.56],[0.14,0.52],[0.2,0.5],[0.26,0.52],[0.3,0.56],[0.34,0.58]]},
+    {name:"R. Main",pts:[[0.7,0.48],[0.6,0.5],[0.52,0.5],[0.44,0.52],[0.38,0.54]]},
+    {name:"R. Nahe",pts:[[0.2,0.6],[0.26,0.58],[0.32,0.58]]},
+    {name:"R. Neckar",pts:[[0.5,0.78],[0.48,0.7],[0.44,0.62]]},
+    {name:"R. Ahr",pts:[[0.14,0.38],[0.18,0.36],[0.24,0.38]]},
+    {name:"R. Saar",pts:[[0.08,0.72],[0.1,0.66],[0.12,0.6]]},
+  ],
+  mountains:[{name:"Black Forest",pts:[[0.35,0.82],[0.38,0.88],[0.42,0.94]]}],
+  regions:[
+    {id:"mosel",name:"MOSEL",area:"M0.04,0.44 L0.22,0.4 L0.3,0.46 L0.32,0.56 L0.26,0.62 L0.14,0.64 L0.06,0.6 L0.02,0.52Z",cx:0.16,cy:0.52,
+      villages:[{n:"Bernkastel",x:0.16,y:0.52},{n:"Piesport",x:0.12,y:0.5},{n:"Wehlen",x:0.18,y:0.5},{n:"Ürzig",x:0.2,y:0.52}],
+      grapes:{r:[],w:["Riesling"]},climate:"Cool continental · Steep slate slopes · River reflects sunlight",keyFact:"Germany's finest Riesling · Light, racy, low alcohol · Slate retains heat",trap:"Prädikat = ripeness at HARVEST, not sweetness. Spätlese CAN be dry. Only BA/TBA always sweet.",subs:["Bernkastel","Piesport","Wehlen"]},
+    {id:"rheingau",name:"RHEINGAU",area:"M0.3,0.38 L0.42,0.36 L0.45,0.42 L0.42,0.48 L0.32,0.48 L0.28,0.44Z",cx:0.36,cy:0.43,
+      villages:[{n:"Rüdesheim",x:0.34,y:0.44},{n:"Johannisberg",x:0.38,y:0.4}],
+      grapes:{r:["Spätburgunder"],w:["Riesling"]},climate:"Rhine-facing slopes · Fuller Riesling",keyFact:"Birthplace of Spätlese · Fuller, drier Riesling style",trap:"VDP classification (Grosse Lage) is VOLUNTARY, not wine law.",subs:["Schloss Johannisberg","Rüdesheim"]},
+    {id:"nahe",name:"NAHE",area:"M0.18,0.56 L0.3,0.56 L0.32,0.62 L0.28,0.68 L0.18,0.68 L0.15,0.62Z",cx:0.24,cy:0.62,
+      villages:[{n:"Bad Kreuznach",x:0.24,y:0.62}],
+      grapes:{r:[],w:["Riesling"]},climate:"Diverse soils · Between Mosel and Rheingau in style",keyFact:"Elegant Riesling · Very diverse geology",trap:"Often overlooked — produces some of Germany's most refined Rieslings.",subs:["Bad Kreuznach"]},
+    {id:"rheinhessen",name:"RHEINHESSEN",area:"M0.34,0.46 L0.52,0.44 L0.56,0.52 L0.54,0.6 L0.44,0.64 L0.34,0.62 L0.3,0.54Z",cx:0.44,cy:0.54,
+      villages:[{n:"Nierstein",x:0.42,y:0.56},{n:"Nackenheim",x:0.4,y:0.52}],
+      grapes:{r:[],w:["Riesling","Müller-Thurgau"]},climate:"Germany's LARGEST region · Quality rising",keyFact:"Largest region · Eiswein: frozen at -7°C, no botrytis",trap:"Eiswein ≠ BA: same must weight but frozen (no botrytis).",subs:["Nierstein"]},
+    {id:"pfalz",name:"PFALZ",area:"M0.3,0.66 L0.42,0.64 L0.44,0.72 L0.42,0.82 L0.32,0.82 L0.28,0.74Z",cx:0.36,cy:0.74,
+      villages:[{n:"Forst",x:0.36,y:0.72},{n:"Deidesheim",x:0.34,y:0.74},{n:"Wachenheim",x:0.35,y:0.78}],
+      grapes:{r:["Spätburgunder"],w:["Riesling","Grauburgunder"]},climate:"Germany's WARMEST major region",keyFact:"Warmest · Dry styles dominant · Riesling + Spätburgunder",trap:"Excellent Spätburgunder (Pinot Noir) — not just white wine.",subs:["Forst","Deidesheim"]},
+    {id:"franken",name:"FRANKEN",area:"M0.6,0.38 L0.8,0.36 L0.84,0.44 L0.82,0.54 L0.7,0.56 L0.6,0.52 L0.58,0.44Z",cx:0.72,cy:0.46,
+      villages:[{n:"Würzburg",x:0.72,y:0.46}],
+      grapes:{r:[],w:["Silvaner","Müller-Thurgau"]},climate:"Continental · More inland",keyFact:"Silvaner = signature · Bocksbeutel bottle",trap:"Silvaner (Franken) = Sylvaner (Alsace) — same grape.",subs:["Würzburg"]},
+    {id:"baden",name:"BADEN",area:"M0.36,0.82 L0.46,0.78 L0.5,0.86 L0.48,0.96 L0.38,0.98 L0.32,0.92Z",cx:0.42,cy:0.9,
+      villages:[{n:"Baden",x:0.42,y:0.9}],
+      grapes:{r:["Spätburgunder"],w:["Grauburgunder"]},climate:"Germany's warmest overall · Opposite Alsace across the Rhine",keyFact:"Warmest German region · Good Spätburgunder (Pinot Noir)",trap:"Baden faces Alsace across the Rhine — similar climate.",subs:["Kaiserstuhl"]},
+    {id:"ahr",name:"AHR",area:"M0.14,0.32 L0.24,0.3 L0.26,0.36 L0.22,0.4 L0.14,0.38Z",cx:0.2,cy:0.35,
+      villages:[{n:"Bad Neuenahr",x:0.2,y:0.35}],
+      grapes:{r:["Spätburgunder"],w:[]},climate:"Small, northern · Sheltered valley",keyFact:"Small region specialising in Spätburgunder (Pinot Noir)",trap:"One of Germany's smallest and most northerly red wine regions.",subs:[]},
+  ]
+},
+italy:{
+  name:"Italy",color:"#c07030",continent:"Europe",
+  neighbors:[{name:"FRANCE",x:0.02,y:0.1},{name:"SWITZERLAND",x:0.25,y:0.02},{name:"AUSTRIA",x:0.55,y:0.02},{name:"SLOVENIA",x:0.75,y:0.06}],
+  cities:[{n:"Milan",x:0.28,y:0.1},{n:"Venice",x:0.52,y:0.1},{n:"Florence",x:0.38,y:0.36},{n:"Rome",x:0.48,y:0.52},{n:"Naples",x:0.54,y:0.64},{n:"Palermo",x:0.38,y:0.82}],
+  border:"M0.2,0 C0.35,0 0.5,0 0.65,0.02 L0.78,0.06 C0.82,0.1 0.76,0.16 0.7,0.2 L0.62,0.24 C0.6,0.28 0.62,0.34 0.66,0.38 L0.7,0.44 C0.68,0.5 0.64,0.56 0.6,0.62 L0.56,0.68 C0.52,0.76 0.48,0.82 0.42,0.88 L0.36,0.94 C0.34,0.98 0.38,0.94 0.42,0.88 L0.46,0.78 C0.44,0.7 0.4,0.62 0.36,0.56 L0.3,0.48 C0.24,0.4 0.18,0.32 0.14,0.24 L0.1,0.14 C0.12,0.08 0.16,0.02 0.2,0Z",
+  rivers:[{name:"R. Po",pts:[[0.15,0.12],[0.3,0.1],[0.45,0.1],[0.58,0.12]]},{name:"R. Arno",pts:[[0.32,0.34],[0.38,0.36],[0.44,0.38]]},{name:"R. Tiber",pts:[[0.42,0.42],[0.46,0.48],[0.5,0.54]]}],
+  mountains:[{name:"Alps",pts:[[0.1,0.02],[0.3,0.02],[0.5,0.02],[0.65,0.04]]},{name:"Apennines",pts:[[0.3,0.18],[0.38,0.28],[0.44,0.38],[0.5,0.48],[0.54,0.6]]}],
+  regions:[
+    {id:"piedmont",name:"Piedmont",area:"M0.08,0.06 L0.24,0.04 L0.28,0.12 L0.26,0.22 L0.16,0.24 L0.06,0.18Z",cx:0.17,cy:0.14,
+      villages:[{n:"Barolo",x:0.14,y:0.16},{n:"Barbaresco",x:0.18,y:0.12},{n:"Asti",x:0.2,y:0.1},{n:"Gavi",x:0.22,y:0.16}],
+      grapes:{r:["Nebbiolo","Barbera","Dolcetto"],w:["Cortese","Moscato Bianco"]},climate:"Continental · Fog (nebbia) in autumn",keyFact:"Barolo/Barbaresco = 100% Nebbiolo · Barolo: 38mo ageing · Barbaresco: 26mo",trap:"Barbera = HIGH acid, LOW tannin. Nebbiolo = HIGH both.",subs:["Barolo DOCG","Barbaresco DOCG","Barbera d'Asti","Gavi","Asti/Moscato d'Asti"]},
+    {id:"veneto",name:"Veneto",area:"M0.38,0.04 L0.58,0.04 L0.62,0.12 L0.58,0.2 L0.42,0.2 L0.36,0.12Z",cx:0.5,cy:0.12,
+      villages:[{n:"Valpolicella",x:0.44,y:0.1},{n:"Soave",x:0.5,y:0.12},{n:"Valdobbiadene",x:0.54,y:0.06}],
+      grapes:{r:["Corvina","Rondinella"],w:["Garganega","Glera"]},climate:"Continental inland · Varied",keyFact:"Amarone = appassimento, DRY, 14-16% · Prosecco = Glera, TANK method",trap:"Amarone = DRY. Recioto = SWEET. Prosecco = tank method (NOT traditional).",subs:["Amarone","Ripasso","Recioto","Soave","Prosecco DOCG"]},
+    {id:"tuscany",name:"Tuscany",area:"M0.26,0.28 L0.44,0.28 L0.48,0.36 L0.46,0.46 L0.36,0.48 L0.24,0.44 L0.22,0.34Z",cx:0.36,cy:0.38,
+      villages:[{n:"Chianti",x:0.36,y:0.36},{n:"Montalcino",x:0.34,y:0.42},{n:"Montepulciano",x:0.42,y:0.42},{n:"Bolgheri",x:0.26,y:0.38}],
+      grapes:{r:["Sangiovese","Cabernet Sauvignon"],w:["Vernaccia"]},climate:"Mediterranean coast / continental inland",keyFact:"Sangiovese = Brunello (Montalcino) = Prugnolo Gentile. Super Tuscans = IGT.",trap:"Montepulciano = GRAPE (Abruzzo) AND PLACE (Tuscany, uses Sangiovese). #1 Italian trap.",subs:["Chianti Classico","Brunello di Montalcino","Vino Nobile","Bolgheri","Super Tuscans"]},
+    {id:"sitaly",name:"Southern Italy",area:"M0.44,0.56 L0.64,0.54 L0.68,0.64 L0.62,0.74 L0.48,0.78 L0.36,0.72 L0.38,0.62Z",cx:0.52,cy:0.66,
+      villages:[{n:"Taurasi",x:0.55,y:0.62},{n:"Puglia",x:0.64,y:0.6},{n:"Etna",x:0.46,y:0.76}],
+      grapes:{r:["Aglianico","Primitivo","Nero d'Avola","Nerello Mascalese"],w:["Fiano","Greco"]},climate:"Hot · Etna: volcanic + altitude = cool",keyFact:"Taurasi = Aglianico · Primitivo = Zinfandel · Etna = elegant, mineral",trap:"Etna DOC is ELEGANT (altitude+volcanic) — atypical for south.",subs:["Taurasi DOCG","Primitivo di Manduria","Etna DOC"]},
+    {id:"friuli",name:"Friuli & Alto Adige",area:"M0.58,0 L0.76,0 L0.78,0.08 L0.74,0.14 L0.6,0.12 L0.56,0.06Z",cx:0.67,cy:0.07,
+      villages:[{n:"Collio",x:0.72,y:0.08},{n:"Alto Adige",x:0.6,y:0.03}],
+      grapes:{r:["Lagrein"],w:["Pinot Grigio","Friulano","Gewürztraminer"]},climate:"Cool, alpine",keyFact:"Italy's finest dry whites · Alto Adige = bilingual (Südtirol)",trap:"Alto Adige PG can be complex — don't dismiss all Italian Pinot Grigio.",subs:["Collio","Alto Adige / Südtirol"]},
+  ]
+},
+spain:{name:"Spain",color:"#c04028",continent:"Europe",
+  neighbors:[{name:"FRANCE",x:0.55,y:0.02},{name:"PORTUGAL",x:0.02,y:0.4}],
+  cities:[{n:"Madrid",x:0.48,y:0.45},{n:"Barcelona",x:0.8,y:0.25},{n:"Seville",x:0.28,y:0.82}],
+  border:"M0.1,0.06 C0.25,0.02 0.45,0 0.6,0.02 L0.75,0.04 C0.85,0.06 0.95,0.12 0.98,0.22 L0.96,0.35 C0.94,0.45 0.9,0.55 0.88,0.62 L0.85,0.72 C0.8,0.8 0.7,0.88 0.58,0.94 L0.42,1 C0.3,0.98 0.2,0.92 0.12,0.84 L0.05,0.72 C0.02,0.6 0,0.48 0,0.36 L0.04,0.22 C0.06,0.14 0.08,0.08 0.1,0.06Z",
+  rivers:[{name:"R. Ebro",pts:[[0.38,0.14],[0.5,0.16],[0.62,0.16],[0.74,0.18]]},{name:"R. Duero",pts:[[0.06,0.3],[0.2,0.28],[0.35,0.3],[0.48,0.32]]},{name:"R. Guadalquivir",pts:[[0.2,0.78],[0.32,0.76],[0.44,0.74]]}],
+  mountains:[{name:"Pyrenees",pts:[[0.4,0.02],[0.55,0.04],[0.68,0.02]]},{name:"Meseta",pts:[[0.3,0.4],[0.5,0.42],[0.65,0.4]]}],
+  regions:[
+    {id:"rioja",name:"Rioja",area:"M0.36,0.08 L0.54,0.08 L0.56,0.16 L0.52,0.22 L0.36,0.2 L0.34,0.14Z",cx:0.45,cy:0.15,villages:[{n:"Haro",x:0.4,y:0.12},{n:"Rioja Alta",x:0.42,y:0.14},{n:"Rioja Alavesa",x:0.44,y:0.1}],grapes:{r:["Tempranillo","Garnacha"],w:["Viura"]},climate:"Continental + Atlantic",keyFact:"DOCa · Joven/Crianza/Reserva/Gran Reserva · American vs French oak",trap:"Only 2 DOCa: Rioja & Priorat. Tempranillo = Tinto Fino (Ribera).",subs:["Rioja Alta","Rioja Alavesa","Rioja Oriental"]},
+    {id:"ribera",name:"Ribera del Duero",area:"M0.3,0.24 L0.48,0.24 L0.5,0.32 L0.46,0.38 L0.3,0.36 L0.28,0.3Z",cx:0.4,cy:0.3,villages:[{n:"Ribera del Duero",x:0.4,y:0.3}],grapes:{r:["Tempranillo (Tinto Fino)"],w:[]},climate:"High altitude (800m+) continental",keyFact:"Full-bodied Tempranillo · Higher altitude than Rioja",trap:"Same grape as Rioja but called Tinto Fino here.",subs:["Ribera del Duero DO"]},
+    {id:"rias",name:"Rías Baixas",area:"M0.02,0.08 L0.14,0.06 L0.16,0.14 L0.12,0.2 L0.02,0.18Z",cx:0.08,cy:0.13,villages:[{n:"Val do Salnés",x:0.08,y:0.13}],grapes:{r:[],w:["Albariño"]},climate:"Atlantic · Cool, wet",keyFact:"Albariño: aromatic, citrus, crisp · Pergola training",trap:"Wet Atlantic climate — unlike most of Spain.",subs:["Val do Salnés"]},
+    {id:"priorat",name:"Priorat",area:"M0.74,0.2 L0.84,0.2 L0.86,0.28 L0.82,0.34 L0.74,0.32 L0.72,0.26Z",cx:0.79,cy:0.27,villages:[{n:"Gratallops",x:0.79,y:0.27}],grapes:{r:["Garnacha","Cariñena"],w:[]},climate:"Mediterranean · Extreme terrain",keyFact:"DOCa · Llicorella (slate) soils · Powerful, concentrated reds",trap:"Cariñena here = Carignan in France.",subs:["Priorat DOCa"]},
+    {id:"sherry",name:"Jerez (Sherry)",area:"M0.16,0.8 L0.36,0.78 L0.38,0.88 L0.34,0.94 L0.18,0.94 L0.14,0.88Z",cx:0.26,cy:0.86,villages:[{n:"Jerez",x:0.26,y:0.84},{n:"Sanlúcar",x:0.2,y:0.86},{n:"El Puerto",x:0.24,y:0.88}],grapes:{r:[],w:["Palomino","Pedro Ximénez"]},climate:"Hot · Atlantic · Albariza chalk",keyFact:"Fino = flor (biological) · Oloroso = oxidative, naturally DRY · Solera system",trap:"Oloroso is DRY. Cream = Oloroso + sweetener. Manzanilla from Sanlúcar only.",subs:["Fino","Manzanilla","Amontillado","Oloroso","PX"]},
+    {id:"cava",name:"Cava",area:"M0.72,0.14 L0.82,0.14 L0.84,0.2 L0.8,0.24 L0.72,0.22Z",cx:0.78,cy:0.19,villages:[{n:"Penedès",x:0.78,y:0.19}],grapes:{r:[],w:["Macabeo","Xarel·lo","Parellada"]},climate:"Mediterranean",keyFact:"Traditional method sparkling",trap:"Cava = traditional method. Prosecco = tank method.",subs:["Cava DO"]},
+    {id:"rueda",name:"Rueda",area:"M0.28,0.3 L0.4,0.3 L0.42,0.36 L0.38,0.42 L0.28,0.4 L0.26,0.36Z",cx:0.34,cy:0.36,villages:[{n:"Rueda",x:0.34,y:0.36}],grapes:{r:[],w:["Verdejo"]},climate:"Continental high Meseta",keyFact:"Verdejo = crisp white",trap:"Verdejo is the KEY grape, not Sauvignon Blanc.",subs:["Rueda DO"]},
+  ]
+},
+portugal:{name:"Portugal",color:"#28a070",continent:"Europe",
+  neighbors:[{name:"SPAIN",x:0.85,y:0.3}],
+  cities:[{n:"Porto",x:0.35,y:0.18},{n:"Lisbon",x:0.25,y:0.58}],
+  border:"M0.2,0 C0.4,0 0.65,0.04 0.8,0.1 L0.95,0.18 C1,0.26 0.98,0.36 0.92,0.46 L0.82,0.56 C0.74,0.64 0.62,0.72 0.5,0.78 L0.36,0.86 C0.24,0.92 0.12,0.96 0.06,0.9 L0.02,0.78 C0,0.66 0,0.54 0.04,0.42 L0.08,0.3 C0.1,0.2 0.14,0.1 0.2,0Z",
+  rivers:[{name:"R. Douro",pts:[[0.3,0.16],[0.45,0.18],[0.6,0.16],[0.78,0.14]]},{name:"R. Tejo",pts:[[0.2,0.54],[0.38,0.56],[0.55,0.54]]}],
+  mountains:[{name:"Serra da Estrela",pts:[[0.5,0.32],[0.6,0.36],[0.65,0.4]]}],
+  regions:[
+    {id:"douro",name:"Douro / Port",area:"M0.35,0.06 L0.82,0.06 L0.86,0.18 L0.78,0.28 L0.4,0.26 L0.32,0.16Z",cx:0.6,cy:0.16,villages:[{n:"Pinhão",x:0.6,y:0.14},{n:"Vila Nova de Gaia",x:0.38,y:0.18},{n:"Régua",x:0.5,y:0.12}],grapes:{r:["Touriga Nacional","Touriga Franca","Tinta Roriz"],w:[]},climate:"Hot continental · Steep schist terraces",keyFact:"Port: aguardente DURING fermentation · Ruby (reductive) vs Tawny (oxidative) · Vintage = decades",trap:"Tawny colour = OXIDATION, not blending. Tinta Roriz = Tempranillo.",subs:["Ruby","Tawny 10/20/30/40yr","LBV","Vintage Port","Colheita"]},
+    {id:"vverde",name:"Vinho Verde",area:"M0.1,0 L0.45,0 L0.42,0.1 L0.35,0.14 L0.15,0.12 L0.08,0.06Z",cx:0.28,cy:0.06,villages:[{n:"Monção",x:0.22,y:0.04}],grapes:{r:[],w:["Alvarinho","Loureiro"]},climate:"Cool, wet Atlantic",keyFact:"Light, crisp, slight spritz · Alvarinho = Albariño",trap:"Alvarinho (PT) = Albariño (Spain).",subs:["Monção e Melgaço"]},
+    {id:"dao",name:"Dão",area:"M0.42,0.28 L0.65,0.28 L0.68,0.38 L0.62,0.46 L0.44,0.44 L0.4,0.36Z",cx:0.54,cy:0.36,villages:[{n:"Viseu",x:0.54,y:0.36}],grapes:{r:["Touriga Nacional"],w:["Encruzado"]},climate:"Mountain-sheltered · Granite",keyFact:"Elegant reds · Encruzado = top white grape",trap:"Jaen (Portugal) = Mencía (Spain).",subs:["Dão DOC"]},
+    {id:"madeira",name:"Madeira",area:"M0.02,0.82 L0.18,0.82 L0.2,0.9 L0.16,0.96 L0.04,0.94Z",cx:0.11,cy:0.88,villages:[{n:"Funchal",x:0.11,y:0.88}],grapes:{r:[],w:["Sercial","Verdelho","Bual","Malmsey"]},climate:"Subtropical island · Estufagem",keyFact:"Sercial (dry) → Verdelho → Bual → Malmsey (sweet) · Estufagem = heating",trap:"Remember the order. Canteiro (natural) = premium.",subs:["Sercial","Verdelho","Bual","Malmsey"]},
+    {id:"alentejo",name:"Alentejo",area:"M0.32,0.56 L0.7,0.54 L0.74,0.66 L0.66,0.78 L0.38,0.76 L0.3,0.66Z",cx:0.52,cy:0.66,villages:[{n:"Évora",x:0.52,y:0.66}],grapes:{r:["Aragonez","Trincadeira"],w:[]},climate:"Hot, dry interior",keyFact:"Modern reds · Aragonez = Tinta Roriz = Tempranillo",trap:"3 names, 1 grape.",subs:["Alentejo DOC"]},
+  ]
+},
+australia:{name:"Australia",color:"#b08020",continent:"Southern Hemisphere",
+  neighbors:[],
+  cities:[{n:"Sydney",x:0.88,y:0.4},{n:"Melbourne",x:0.75,y:0.65},{n:"Adelaide",x:0.52,y:0.6},{n:"Perth",x:0.1,y:0.5}],
+  border:"M0.08,0.18 C0.06,0.3 0.06,0.42 0.1,0.52 L0.14,0.6 C0.2,0.68 0.3,0.74 0.4,0.78 L0.5,0.76 C0.55,0.74 0.6,0.72 0.68,0.7 L0.78,0.66 C0.84,0.6 0.9,0.5 0.95,0.38 L1,0.22 C0.95,0.12 0.85,0.04 0.72,0 L0.55,0.02 C0.4,0.06 0.25,0.1 0.14,0.16Z",
+  rivers:[{name:"R. Murray",pts:[[0.55,0.58],[0.5,0.62],[0.44,0.66],[0.38,0.7]]}],
+  mountains:[{name:"Great Dividing Range",pts:[[0.88,0.28],[0.85,0.38],[0.8,0.48],[0.76,0.58],[0.72,0.66]]}],
+  regions:[
+    {id:"barossa",name:"Barossa Valley",area:"M0.48,0.52 L0.58,0.5 L0.6,0.58 L0.56,0.64 L0.48,0.62Z",cx:0.54,cy:0.57,villages:[{n:"Barossa",x:0.54,y:0.56},{n:"Eden Valley",x:0.56,y:0.54}],grapes:{r:["Shiraz","Grenache"],w:["Riesling (Eden)"]},climate:"Warm, dry · Eden Valley = cooler (altitude)",keyFact:"Old-vine Shiraz · Eden = Riesling · Clare = screwcap pioneer",trap:"Shiraz = Syrah. Eden is COOLER than Barossa (altitude).",subs:["Barossa","Eden Valley","Clare Valley","McLaren Vale"]},
+    {id:"hunter",name:"Hunter Valley",area:"M0.82,0.3 L0.94,0.3 L0.96,0.38 L0.92,0.44 L0.82,0.42Z",cx:0.88,cy:0.36,villages:[{n:"Hunter Valley",x:0.88,y:0.36}],grapes:{r:["Shiraz"],w:["Sémillon"]},climate:"Warm, humid · Cloud + sea breezes",keyFact:"Sémillon: EARLY-picked, LOW alcohol, UNOAKED, ages magnificently",trap:"NOT rich/oaky. Ageing = acidity, not oak.",subs:["Hunter Valley GI"]},
+    {id:"margaret",name:"Margaret River",area:"M0.06,0.48 L0.16,0.46 L0.18,0.54 L0.14,0.6 L0.06,0.58Z",cx:0.12,cy:0.53,villages:[{n:"Margaret River",x:0.12,y:0.53}],grapes:{r:["Cabernet Sauvignon"],w:["Chardonnay"]},climate:"Maritime (Bordeaux-like)",keyFact:"Elegant Cab Sauv · Premium Chardonnay",trap:"Western Australia — geographically isolated.",subs:["Margaret River GI"]},
+    {id:"coonawarra",name:"Coonawarra",area:"M0.5,0.66 L0.6,0.66 L0.62,0.72 L0.58,0.76 L0.5,0.74Z",cx:0.56,cy:0.71,villages:[{n:"Coonawarra",x:0.56,y:0.71}],grapes:{r:["Cabernet Sauvignon"],w:[]},climate:"Cool · Southern Ocean",keyFact:"TERRA ROSSA soil · Elegant Cab Sauv",trap:"Terra rossa + Cab Sauv (NOT Shiraz).",subs:["Coonawarra GI"]},
+    {id:"tasmania",name:"Tasmania",area:"M0.72,0.78 L0.82,0.78 L0.84,0.86 L0.8,0.92 L0.72,0.9Z",cx:0.78,cy:0.85,villages:[{n:"Tasmania",x:0.78,y:0.85}],grapes:{r:["Pinot Noir"],w:["Chardonnay"]},climate:"Australia's COOLEST",keyFact:"Excellent sparkling base · Elegant Pinot",trap:"Genuinely cool — don't assume all Aus is warm.",subs:["Tasmania GI"]},
+    {id:"yarra",name:"Yarra Valley",area:"M0.72,0.58 L0.8,0.58 L0.82,0.64 L0.78,0.68 L0.72,0.66Z",cx:0.77,cy:0.63,villages:[{n:"Yarra",x:0.77,y:0.63}],grapes:{r:["Pinot Noir"],w:["Chardonnay"]},climate:"Cool maritime",keyFact:"Burgundy-style Pinot Noir & Chardonnay",trap:"Yarra Shiraz = elegant/peppery (not Barossa blockbuster).",subs:["Yarra Valley GI"]},
+  ]
+},
+newzealand:{name:"New Zealand",color:"#2090a0",continent:"Southern Hemisphere",
+  neighbors:[],cities:[{n:"Auckland",x:0.55,y:0.15},{n:"Wellington",x:0.55,y:0.38},{n:"Christchurch",x:0.45,y:0.58}],
+  border:"M0.38,0 C0.5,0.04 0.6,0.1 0.68,0.18 L0.72,0.28 C0.7,0.34 0.65,0.38 0.58,0.42 L0.52,0.44 C0.48,0.48 0.42,0.54 0.36,0.6 L0.28,0.7 C0.22,0.78 0.16,0.86 0.12,0.94 L0.08,1 C0.06,0.94 0.1,0.84 0.16,0.74 L0.24,0.62 C0.3,0.52 0.34,0.42 0.36,0.32 L0.38,0.22 C0.38,0.14 0.37,0.06 0.38,0Z",
+  rivers:[],mountains:[{name:"Southern Alps",pts:[[0.2,0.56],[0.22,0.64],[0.18,0.72],[0.14,0.82]]}],
+  regions:[
+    {id:"marlborough",name:"Marlborough",area:"M0.44,0.36 L0.62,0.34 L0.66,0.42 L0.6,0.5 L0.46,0.48Z",cx:0.55,cy:0.42,villages:[{n:"Wairau Valley",x:0.55,y:0.42},{n:"Southern Valleys",x:0.56,y:0.46}],grapes:{r:["Pinot Noir"],w:["Sauvignon Blanc"]},climate:"Maritime · Sunny, dry · South Island",keyFact:"Defines GLOBAL Sauvignon Blanc style · NZ's largest region",trap:"South Island. NZ's most-planted = Sauvignon Blanc.",subs:["Wairau Valley","Southern Valleys"]},
+    {id:"hawkes",name:"Hawke's Bay",area:"M0.58,0.18 L0.72,0.16 L0.74,0.24 L0.7,0.3 L0.58,0.28Z",cx:0.66,cy:0.23,villages:[{n:"Gimblett Gravels",x:0.66,y:0.23}],grapes:{r:["Cabernet Sauvignon","Merlot","Syrah"],w:["Chardonnay"]},climate:"NZ's WARMEST · North Island",keyFact:"Bordeaux-style reds · Gimblett Gravels = premium",trap:"Not all NZ = Sauvignon Blanc.",subs:["Gimblett Gravels"]},
+    {id:"otago",name:"Central Otago",area:"M0.14,0.7 L0.3,0.7 L0.32,0.8 L0.28,0.88 L0.16,0.86Z",cx:0.23,cy:0.79,villages:[{n:"Bannockburn",x:0.22,y:0.78},{n:"Gibbston",x:0.26,y:0.8}],grapes:{r:["Pinot Noir"],w:[]},climate:"CONTINENTAL — NZ's ONLY continental region",keyFact:"Intense Pinot Noir · Most southerly significant wine region",trap:"NZ's ONLY continental. All others = maritime.",subs:["Bannockburn","Gibbston"]},
+    {id:"martinborough",name:"Martinborough",area:"M0.46,0.32 L0.56,0.3 L0.58,0.36 L0.54,0.4 L0.46,0.38Z",cx:0.52,cy:0.35,villages:[{n:"Martinborough",x:0.52,y:0.35}],grapes:{r:["Pinot Noir"],w:[]},climate:"Small, sheltered rain shadow",keyFact:"Quality Pinot Noir",trap:"Martinborough ≠ Marlborough.",subs:[]},
+  ]
+},
+};
+
+const EXTRA = {
+argentina:{name:"Argentina",color:"#8a8a30",continent:"Americas",neighbors:[{name:"CHILE",x:0.12,y:0.5}],cities:[{n:"Buenos Aires",x:0.65,y:0.55},{n:"Mendoza City",x:0.3,y:0.48}],border:"M0.38,0 L0.58,0.08 L0.68,0.2 L0.72,0.38 L0.68,0.55 L0.6,0.7 L0.48,0.85 L0.35,0.95 L0.22,1 L0.2,0.85 L0.22,0.68 L0.25,0.5 L0.28,0.35 L0.3,0.2 L0.33,0.08Z",rivers:[],mountains:[{name:"Andes",pts:[[0.22,0.08],[0.24,0.25],[0.25,0.42],[0.24,0.6],[0.22,0.78]]}],regions:[
+  {id:"mendoza",name:"Mendoza",area:"M0.24,0.36 L0.5,0.34 L0.55,0.46 L0.48,0.58 L0.28,0.56 L0.22,0.46Z",cx:0.38,cy:0.46,villages:[{n:"Luján de Cuyo",x:0.34,y:0.42},{n:"Maipú",x:0.38,y:0.44},{n:"Uco Valley",x:0.3,y:0.52}],grapes:{r:["Malbec","Cabernet Sauvignon"],w:[]},climate:"Semi-arid · 600-1500m · Andes snowmelt irrigation",keyFact:"~70% production · Altitude = key · Uco Valley = premium (1000-1500m)",trap:"ALTITUDE is the key, not latitude. Zonda = hot dry wind.",subs:["Luján de Cuyo","Maipú","Uco Valley"]},
+  {id:"salta",name:"Salta",area:"M0.38,0.04 L0.55,0.04 L0.58,0.14 L0.52,0.22 L0.4,0.2Z",cx:0.48,cy:0.12,villages:[{n:"Cafayate",x:0.48,y:0.12}],grapes:{r:["Malbec"],w:["Torrontés"]},climate:"Extreme altitude (up to 3000m!)",keyFact:"Torrontés: aromatic, floral · Argentina's signature white",trap:"Torrontés ≠ Spanish Torrontés.",subs:["Cafayate"]},
+]},
+chile:{name:"Chile",color:"#308a50",continent:"Americas",neighbors:[{name:"ARGENTINA",x:0.65,y:0.4}],cities:[{n:"Santiago",x:0.44,y:0.38}],border:"M0.38,0 L0.5,0.08 L0.55,0.22 L0.58,0.38 L0.62,0.55 L0.66,0.72 L0.62,0.88 L0.52,1 L0.42,0.9 L0.36,0.75 L0.3,0.58 L0.28,0.4 L0.3,0.22 L0.34,0.08Z",rivers:[],mountains:[{name:"Andes",pts:[[0.26,0.05],[0.27,0.22],[0.28,0.4],[0.3,0.6],[0.32,0.8]]}],regions:[
+  {id:"central",name:"Central Valley",area:"M0.32,0.28 L0.55,0.26 L0.58,0.4 L0.56,0.54 L0.38,0.52 L0.3,0.4Z",cx:0.44,cy:0.4,villages:[{n:"Maipo",x:0.44,y:0.36},{n:"Colchagua",x:0.46,y:0.44},{n:"Maule",x:0.44,y:0.5}],grapes:{r:["Cabernet Sauvignon","Carmenère"],w:[]},climate:"Mediterranean · Warm, dry",keyFact:"Carmenère = signature (confused with Merlot until 1994) · Phylloxera-free",trap:"Humboldt Current is COLD. Ungrafted vines.",subs:["Maipo","Colchagua","Maule"]},
+  {id:"coastal",name:"Casablanca & Leyda",area:"M0.3,0.2 L0.48,0.18 L0.5,0.26 L0.46,0.32 L0.3,0.3Z",cx:0.4,cy:0.25,villages:[{n:"Casablanca",x:0.4,y:0.24},{n:"Leyda",x:0.38,y:0.26}],grapes:{r:["Pinot Noir"],w:["Sauvignon Blanc"]},climate:"Cool coastal · Humboldt fog",keyFact:"Cold Humboldt Current → coastal fog → cool-climate whites",trap:"Humboldt = COLD current.",subs:["Casablanca","Leyda"]},
+]},
+southafrica:{name:"South Africa",color:"#9030a0",continent:"Southern Hemisphere",neighbors:[],cities:[{n:"Cape Town",x:0.2,y:0.72}],border:"M0.06,0 L0.35,0 L0.6,0.02 L0.85,0.1 L1,0.22 L0.95,0.42 L0.82,0.58 L0.65,0.68 L0.46,0.76 L0.28,0.82 L0.14,0.78 L0.06,0.66 L0.02,0.5 L0,0.32 L0.04,0.14Z",rivers:[],mountains:[{name:"Cape Fold Mtns",pts:[[0.25,0.52],[0.4,0.56],[0.55,0.54]]}],regions:[
+  {id:"cape",name:"Cape Winelands",area:"M0.1,0.54 L0.42,0.52 L0.48,0.64 L0.4,0.78 L0.16,0.76 L0.08,0.64Z",cx:0.28,cy:0.66,villages:[{n:"Stellenbosch",x:0.26,y:0.64},{n:"Paarl",x:0.22,y:0.6},{n:"Swartland",x:0.18,y:0.56},{n:"Constantia",x:0.2,y:0.72},{n:"Walker Bay",x:0.34,y:0.76},{n:"Elgin",x:0.3,y:0.7}],grapes:{r:["Pinotage","Cabernet Sauvignon","Syrah"],w:["Chenin Blanc (Steen)"]},climate:"Mediterranean · Benguela Current (cold) cools coast · Cape Doctor wind",keyFact:"Chenin Blanc (Steen) = most-planted · Pinotage = Pinot Noir × Cinsault · Old-vine Swartland Chenin",trap:"Benguela = COLD. Chenin = 'Steen' locally.",subs:["Stellenbosch","Paarl","Swartland","Walker Bay","Constantia","Elgin"]},
+]},
+usa:{name:"United States",color:"#3050a0",continent:"Americas",neighbors:[{name:"MEXICO",x:0.35,y:0.95},{name:"CANADA",x:0.45,y:0.02}],cities:[{n:"San Francisco",x:0.06,y:0.42},{n:"Los Angeles",x:0.08,y:0.58},{n:"New York",x:0.88,y:0.28}],border:"M0,0.3 L0.04,0.2 L0.1,0.12 L0.25,0.08 L0.45,0.04 L0.65,0 L0.82,0.04 L0.95,0.12 L1,0.24 L0.96,0.38 L0.92,0.52 L0.85,0.62 L0.7,0.72 L0.52,0.82 L0.35,0.88 L0.18,0.92 L0.05,0.88 L0,0.75 L0.02,0.58 L0,0.42Z",rivers:[],mountains:[{name:"Cascades",pts:[[0.06,0.12],[0.065,0.18],[0.07,0.26]]}],regions:[
+  {id:"napa",name:"Napa & Sonoma",area:"M0.02,0.34 L0.12,0.32 L0.14,0.42 L0.12,0.52 L0.04,0.5 L0.02,0.42Z",cx:0.08,cy:0.42,villages:[{n:"Napa",x:0.09,y:0.4},{n:"Sonoma",x:0.06,y:0.38},{n:"Paso Robles",x:0.07,y:0.5}],grapes:{r:["Cabernet Sauvignon","Zinfandel","Pinot Noir"],w:["Chardonnay"]},climate:"Mediterranean · Pacific fog cools coast",keyFact:"AVA = geography ONLY · Napa = Cab Sauv prestige · Central Valley = bulk",trap:"AVA ≠ European AOC. 85% rule. Central Valley = most volume.",subs:["Napa Valley","Sonoma","Paso Robles","Central Valley"]},
+  {id:"oregon",name:"Oregon",area:"M0.02,0.14 L0.1,0.12 L0.12,0.2 L0.1,0.28 L0.02,0.26Z",cx:0.07,cy:0.2,villages:[{n:"Willamette Valley",x:0.06,y:0.2}],grapes:{r:["Pinot Noir"],w:["Pinot Gris"]},climate:"Cool maritime · Like Burgundy",keyFact:"90% varietal rule · Elegant Pinot Noir",trap:"OR = maritime/Pinot. WA = continental/Cab Sauv.",subs:["Willamette Valley"]},
+  {id:"washington",name:"Washington",area:"M0.04,0.06 L0.14,0.04 L0.16,0.12 L0.12,0.18 L0.04,0.16Z",cx:0.1,cy:0.11,villages:[{n:"Columbia Valley",x:0.1,y:0.1}],grapes:{r:["Cabernet Sauvignon","Merlot"],w:["Riesling"]},climate:"Continental desert · Cascade rain shadow · Irrigated",keyFact:"Arid, irrigated · USA's 2nd largest wine state",trap:"Desert needing irrigation — Cascade rain shadow.",subs:["Columbia Valley","Walla Walla"]},
+  {id:"ny",name:"New York",area:"M0.78,0.2 L0.9,0.18 L0.92,0.26 L0.88,0.32 L0.78,0.3Z",cx:0.85,cy:0.25,villages:[{n:"Finger Lakes",x:0.84,y:0.24},{n:"Long Island",x:0.88,y:0.28}],grapes:{r:["Cabernet Franc"],w:["Riesling"]},climate:"Finger Lakes = cool continental",keyFact:"Finger Lakes = best US Riesling",trap:"Two different sub-regions.",subs:["Finger Lakes","Long Island"]},
+]},
+canada:{name:"Canada",color:"#6030a0",continent:"Americas",neighbors:[{name:"USA",x:0.5,y:0.95}],cities:[{n:"Toronto",x:0.7,y:0.65}],border:"M0.08,0.15 L0.3,0.05 L0.55,0 L0.78,0.05 L0.95,0.15 L1,0.35 L0.92,0.55 L0.78,0.7 L0.55,0.8 L0.32,0.88 L0.15,0.9 L0.02,0.8 L0,0.6 L0.04,0.35Z",rivers:[],mountains:[],regions:[
+  {id:"niagara",name:"Niagara Peninsula",area:"M0.6,0.55 L0.82,0.55 L0.86,0.66 L0.8,0.76 L0.62,0.74Z",cx:0.72,cy:0.66,villages:[{n:"Niagara-on-the-Lake",x:0.72,y:0.64}],grapes:{r:["Cabernet Franc"],w:["Riesling","Vidal"]},climate:"Cool continental · Lake Ontario moderation",keyFact:"Icewine: -8°C · Vidal (most common) or Riesling (premium)",trap:"Vidal (hybrid) = most common, NOT Riesling.",subs:["Niagara-on-the-Lake"]},
+  {id:"okanagan",name:"Okanagan",area:"M0.15,0.3 L0.38,0.28 L0.42,0.4 L0.36,0.5 L0.18,0.48Z",cx:0.28,cy:0.39,villages:[{n:"Okanagan",x:0.28,y:0.39}],grapes:{r:["Merlot","Syrah"],w:["Pinot Gris"]},climate:"Desert-like south · Lake-moderated",keyFact:"BC · Quality still wines",trap:"Surprisingly hot/dry in south.",subs:["Okanagan Valley"]},
+]},
+austria:{name:"Austria",color:"#a08030",continent:"Europe",neighbors:[{name:"GERMANY",x:0.15,y:0.02},{name:"HUNGARY",x:0.95,y:0.4}],cities:[{n:"Vienna",x:0.72,y:0.35}],border:"M0,0.4 L0.12,0.25 L0.28,0.3 L0.45,0.15 L0.6,0.05 L0.75,0 L0.9,0.1 L1,0.3 L0.95,0.5 L0.82,0.65 L0.6,0.78 L0.4,0.9 L0.22,0.95 L0.08,0.8 L0,0.6Z",rivers:[{name:"R. Danube",pts:[[0.15,0.28],[0.3,0.25],[0.5,0.22],[0.65,0.28],[0.8,0.35]]}],mountains:[{name:"Alps",pts:[[0.08,0.58],[0.25,0.65],[0.42,0.7],[0.58,0.65]]}],regions:[
+  {id:"wachau",name:"Wachau / Kremstal / Kamptal",area:"M0.28,0.14 L0.58,0.12 L0.62,0.24 L0.56,0.34 L0.32,0.32Z",cx:0.45,cy:0.23,villages:[{n:"Wachau",x:0.38,y:0.22},{n:"Kremstal",x:0.46,y:0.2},{n:"Kamptal",x:0.52,y:0.18}],grapes:{r:[],w:["Grüner Veltliner","Riesling"]},climate:"Continental · Danube terraces",keyFact:"Wachau: Steinfeder/Federspiel/Smaragd (NOT DAC) · Kremstal/Kamptal = DAC",trap:"Wachau ≠ DAC. Own classification.",subs:["Wachau","Kremstal DAC","Kamptal DAC"]},
+  {id:"burgenland",name:"Burgenland",area:"M0.72,0.35 L0.92,0.35 L0.95,0.5 L0.9,0.64 L0.74,0.62Z",cx:0.84,cy:0.5,villages:[{n:"Neusiedlersee",x:0.84,y:0.48},{n:"Rust",x:0.86,y:0.52}],grapes:{r:["Zweigelt","Blaufränkisch"],w:[]},climate:"Warm Pannonian · Lake Neusiedl → botrytis",keyFact:"Zweigelt (most-planted red) · Blaufränkisch (best quality) · Sweet wines from lake botrytis",trap:"Ausbruch (Rust) = between BA and TBA.",subs:["Neusiedlersee","Rust"]},
+]},
+hungary:{name:"Hungary",color:"#7040a0",continent:"Europe",neighbors:[{name:"AUSTRIA",x:0.02,y:0.3},{name:"SLOVAKIA",x:0.4,y:0.02}],cities:[{n:"Budapest",x:0.42,y:0.45}],border:"M0.05,0.3 L0.25,0.08 L0.5,0 L0.75,0.05 L0.95,0.15 L1,0.35 L0.9,0.55 L0.72,0.7 L0.5,0.82 L0.3,0.9 L0.12,0.8 L0,0.6Z",rivers:[{name:"R. Bodrog",pts:[[0.62,0.12],[0.66,0.2],[0.7,0.28]]},{name:"R. Tisza",pts:[[0.74,0.08],[0.72,0.18],[0.7,0.28]]}],mountains:[],regions:[
+  {id:"tokaj",name:"Tokaj",area:"M0.55,0.08 L0.8,0.08 L0.82,0.24 L0.76,0.36 L0.58,0.34Z",cx:0.68,cy:0.22,villages:[{n:"Tokaj",x:0.68,y:0.2},{n:"Mád",x:0.64,y:0.16},{n:"Tarcal",x:0.72,y:0.18}],grapes:{r:[],w:["Furmint","Hárslevelű"]},climate:"Continental · River confluence → botrytis mists",keyFact:"Aszú: botrytis paste, min 5 puttonyos (120 g/L RS) · Volcanic cellars",trap:"Szamorodni can be DRY or sweet. Furmint = great dry wines too.",subs:["Tokaj-Hegyalja"]},
+]},
+greece:{name:"Greece",color:"#2060a8",continent:"Europe",neighbors:[{name:"TURKEY",x:0.95,y:0.2},{name:"ALBANIA",x:0.05,y:0.1}],cities:[{n:"Athens",x:0.52,y:0.48}],border:"M0.15,0 L0.45,0.02 L0.7,0 L0.88,0.1 L0.98,0.28 L0.92,0.45 L0.78,0.52 L0.6,0.5 L0.48,0.56 L0.35,0.5 L0.18,0.42 L0.05,0.3 L0,0.18 L0.08,0.06Z",rivers:[],mountains:[{name:"Mt Olympus",pts:[[0.35,0.12],[0.4,0.18]]}],regions:[
+  {id:"naoussa",name:"Naoussa",area:"M0.25,0.06 L0.42,0.04 L0.44,0.14 L0.4,0.22 L0.26,0.2Z",cx:0.35,cy:0.13,villages:[{n:"Naoussa",x:0.35,y:0.13}],grapes:{r:["Xinomavro"],w:[]},climate:"Cooler north · 350m",keyFact:"100% Xinomavro · Compared to Nebbiolo",trap:"Naoussa = Xinomavro. Nemea = Agiorgitiko.",subs:[]},
+  {id:"nemea",name:"Nemea",area:"M0.38,0.4 L0.52,0.38 L0.55,0.46 L0.5,0.52 L0.38,0.5Z",cx:0.46,cy:0.45,villages:[{n:"Nemea",x:0.46,y:0.45}],grapes:{r:["Agiorgitiko"],w:[]},climate:"Various altitudes",keyFact:"100% Agiorgitiko · Softer than Xinomavro",trap:"Altitude affects style.",subs:[]},
+  {id:"santorini",name:"Santorini",area:"M0.72,0.56 L0.86,0.56 L0.88,0.64 L0.84,0.7 L0.72,0.68Z",cx:0.8,cy:0.63,villages:[{n:"Santorini",x:0.8,y:0.63}],grapes:{r:[],w:["Assyrtiko"]},climate:"Volcanic island · Extreme winds · Hot",keyFact:"Assyrtiko: HIGH acidity despite heat · Kouloura vines · Volcanic soil",trap:"Vinsanto = sun-dried (NOT botrytis).",subs:["Vinsanto"]},
+]},
+};
+Object.assign(DATA, EXTRA);
+
+export const CONTS = ["Europe","Americas","Southern Hemisphere"];
+export const byC = {};
+CONTS.forEach(c => { byC[c] = Object.entries(DATA).filter(([,d]) => d.continent === c); });
