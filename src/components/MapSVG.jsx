@@ -234,7 +234,3 @@ export default function MapSVG({ country, sel, onSel }) {
     </div>
   );
 }
-
-/* ═══════════════════════════════════════════
-   UI COMPONENTS — light, clean, educational
-

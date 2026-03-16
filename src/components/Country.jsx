@@ -98,6 +98,3 @@ export default function Country({ck,c,sel,onSel}){
     {sel && <div style={{flex:"0 0 45%",display:"flex",flexDirection:"column",overflow:"hidden",background:"#fdfcfa"}}><Detail r={sel} c={c} onClose={() => onSel(null)} /></div>}
   </div>;
 }
-
-/* ═══════════════════════════════════════════
-   APP

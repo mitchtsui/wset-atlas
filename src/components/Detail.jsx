@@ -35,9 +35,6 @@ return <div style={{padding:"8px 12px",marginBottom:6,background:"#f8f6f0",borde
 </div>}
 
 
-/* ═══════════════════════════════════════════
-   REGION SUB-MAPS — cartographic style
-
 function CartoMap({ sm, selV, onSelV }) {
   return (
     <svg viewBox={`-14 -16 ${sm.w+28} ${sm.h+32}`} role="img" aria-label={`Appellation map: ${sm.title}`} style={{width:"100%",height:"auto",maxHeight:460,display:"block",background:"#e8eddf",borderRadius:6,border:"1px solid #c8c4b0"}}>
