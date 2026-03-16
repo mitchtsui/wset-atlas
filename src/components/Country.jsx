@@ -3,7 +3,7 @@ import MapSVG from "./MapSVG.jsx";
 import Detail from "./Detail.jsx";
 import { rc } from "../data/countries.js";
 
-export default function Country({ck,c,sel,onSel}){
+export default function Country({ck,c,sel,onSel,onMC,onSQ}){
   const [mobile, setMobile] = useState(false);
   const [tab, setTab] = useState("map"); // mobile tabs: map | list | detail
 
@@ -71,7 +71,7 @@ export default function Country({ck,c,sel,onSel}){
         )}
         {tab === "detail" && sel && (
           <div style={{flex:1,overflow:"hidden",display:"flex",flexDirection:"column"}}>
-            <Detail r={sel} c={c} onClose={() => {onSel(null);setTab("map");}} />
+            <Detail r={sel} c={c} onClose={() => {onSel(null);setTab("map");}} onMC={onMC} onSQ={onSQ} />
           </div>
         )}
       </div>
@@ -95,6 +95,6 @@ export default function Country({ck,c,sel,onSel}){
         </div>})}
       </div>
     </div>
-    {sel && <div style={{flex:"0 0 45%",display:"flex",flexDirection:"column",overflow:"hidden",background:"#fdfcfa"}}><Detail r={sel} c={c} onClose={() => onSel(null)} /></div>}
+    {sel && <div style={{flex:"0 0 45%",display:"flex",flexDirection:"column",overflow:"hidden",background:"#fdfcfa"}}><Detail r={sel} c={c} onClose={() => onSel(null)} onMC={onMC} onSQ={onSQ} /></div>}
   </div>;
 }

@@ -10,21 +10,22 @@ function Info({color,label,text}){return <div style={{borderLeft:`3px solid ${co
 </div>}
 
 
-export function Quiz({q,a,n}){const[s,setS]=useState(false);return <div style={{padding:"8px 12px",marginBottom:6,background:"#f8f6f0",borderRadius:6,border:"1px solid #e8e4d8"}}>
+export function Quiz({q,a,n,onReveal}){const[s,setS]=useState(false);const doReveal=()=>{setS(true);if(onReveal)onReveal();};return <div style={{padding:"8px 12px",marginBottom:6,background:"#f8f6f0",borderRadius:6,border:"1px solid #e8e4d8"}}>
   <div style={{fontSize:12,color:"#444",marginBottom:4}}><b style={{color:"#888"}}>Q{n}:</b> {q}</div>
-  {s?<div style={{fontSize:12,color:"#308040",fontWeight:600}}>✓ {a}</div>:<button onClick={()=>setS(true)} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();setS(true);}}} aria-label={`Reveal answer for question ${n}`} style={{background:"#e8e4d8",border:"none",color:"#666",padding:"3px 12px",borderRadius:4,fontSize:11,cursor:"pointer"}}>Reveal</button>}
+  {s?<div style={{fontSize:12,color:"#308040",fontWeight:600}}>✓ {a}</div>:<button onClick={doReveal} onKeyDown={(e)=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();doReveal();}}} aria-label={`Reveal answer for question ${n}`} style={{background:"#e8e4d8",border:"none",color:"#666",padding:"3px 12px",borderRadius:4,fontSize:11,cursor:"pointer"}}>Reveal</button>}
 </div>}
 
 
-export function MCQ({q,o,a,e,n}){const[sel,setSel]=useState(null);const[show,setShow]=useState(false);
+export function MCQ({q,o,a,e,n,onAnswer}){const[sel,setSel]=useState(null);const[show,setShow]=useState(false);
 const ai="abcd".indexOf(a);
+const doAnswer=(i)=>{if(sel!==null)return;setSel(i);setShow(true);if(onAnswer)onAnswer(i===ai);};
 return <div style={{padding:"8px 12px",marginBottom:6,background:"#f8f6f0",borderRadius:6,border:"1px solid #e8e4d8"}}>
   <div style={{fontSize:11.5,color:"#444",marginBottom:5}}><b style={{color:"#6898b8",fontFamily:"sans-serif",fontSize:9.5}}>MC{n}.</b> {q}</div>
   <div style={{display:"grid",gap:3}} role="radiogroup" aria-label={`Question ${n} options`}>
     {o.map((opt,i)=>{const letter="abcd"[i];const isAns=i===ai;const picked=sel===i;
       return <div key={i} role="radio" aria-checked={picked} tabIndex={0}
-        onClick={()=>{setSel(i);setShow(true);}}
-        onKeyDown={(ev)=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();setSel(i);setShow(true);}}}
+        onClick={()=>doAnswer(i)}
+        onKeyDown={(ev)=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();doAnswer(i);}}}
         style={{padding:"4px 8px",borderRadius:4,fontSize:11,cursor:"pointer",outline:"none",
         border:show&&isAns?"2px solid #2E7D32":picked&&!isAns?"2px solid #c03030":"1px solid #ddd",
         background:show&&isAns?"#e8f5e8":picked&&!isAns?"#fde8e8":"#fff",
@@ -137,7 +138,7 @@ function GermanSweetnessChart(){
   </div>;
 }
 
-export default function Detail({r,c,onClose}){
+export default function Detail({r,c,onClose,onMC,onSQ}){
   const [selV, setSelV] = useState(-1);
 
   // Pull rich content from the study guide document
@@ -249,12 +250,12 @@ export default function Detail({r,c,onClose}){
 
       {/* Multiple Choice Questions */}
       {gd?.mc?.length > 0 && <Sec l="Multiple Choice Practice" i="📝">
-        {gd.mc.map((q,i) => <MCQ key={i} q={q.q} o={q.o} a={q.a} e={q.e} n={i+1} />)}
+        {gd.mc.map((q,i) => <MCQ key={i} q={q.q} o={q.o} a={q.a} e={q.e} n={i+1} onAnswer={onMC ? (correct) => onMC(gNum, i, correct) : undefined} />)}
       </Sec>}
 
       {/* Short Answer Questions */}
       {gd?.sq?.length > 0 && <Sec l="Short Answer Questions" i="✍️">
-        {gd.sq.map((q,i) => <Quiz key={i} q={q.q} a={q.a} n={i+1} />)}
+        {gd.sq.map((q,i) => <Quiz key={i} q={q.q} a={q.a} n={i+1} onReveal={onSQ ? () => onSQ(gNum, i) : undefined} />)}
       </Sec>}
     </div>
   </div>;
