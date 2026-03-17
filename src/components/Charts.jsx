@@ -13,7 +13,7 @@ export function MethodChart(){
   </g>;
   const ar=(x1,y1,x2,y2)=><line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#ccc" strokeWidth={.6} markerEnd="url(#sa)"/>;
   const H=26;
-  return <svg viewBox="0 0 360 210" style={{width:"100%",display:"block",background:"#f8fafc",borderRadius:6,border:"1px solid #e0e4e8"}}>
+  return <svg viewBox="0 0 360 210" style={{width:"100%",maxWidth:560,display:"block",background:"#f8fafc",borderRadius:6,border:"1px solid #e0e4e8"}}>
     <defs><marker id="sa" viewBox="0 0 6 6" refX={5} refY={3} markerWidth={4} markerHeight={4} orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#ccc"/></marker></defs>
     <text x={180} y={12} textAnchor="middle" fill="#333" fontSize={7} fontWeight={600} letterSpacing={1.5} style={{fontFamily:SF}}>SPARKLING METHODS COMPARED</text>
 
@@ -68,7 +68,7 @@ export function PortChart(){
   </g>;
   const ar=(x1,y1,x2,y2)=><line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#ccc" strokeWidth={.6} markerEnd="url(#pa)"/>;
   const BH=20, RH=20;
-  return <svg viewBox="0 0 360 268" style={{width:"100%",display:"block",background:"#f8f6f4",borderRadius:6,border:"1px solid #e0dcd0"}}>
+  return <svg viewBox="0 0 360 268" style={{width:"100%",maxWidth:560,display:"block",background:"#f8f6f4",borderRadius:6,border:"1px solid #e0dcd0"}}>
     <defs><marker id="pa" viewBox="0 0 6 6" refX={5} refY={3} markerWidth={4} markerHeight={4} orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#ccc"/></marker></defs>
     <text x={180} y={12} textAnchor="middle" fill="#333" fontSize={7} fontWeight={600} letterSpacing={1.5} style={{fontFamily:SF}}>PORT PRODUCTION & STYLES</text>
 
@@ -144,7 +144,7 @@ export function SherryChart(){
   </g>;
   const ar=(x1,y1,x2,y2)=><line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#ccc" strokeWidth={.6} markerEnd="url(#sha)"/>;
   const BH=20, PH=20;
-  return <svg viewBox="0 0 360 282" style={{width:"100%",display:"block",background:"#f8f6f4",borderRadius:6,border:"1px solid #e0dcd0"}}>
+  return <svg viewBox="0 0 360 282" style={{width:"100%",maxWidth:560,display:"block",background:"#f8f6f4",borderRadius:6,border:"1px solid #e0dcd0"}}>
     <defs><marker id="sha" viewBox="0 0 6 6" refX={5} refY={3} markerWidth={4} markerHeight={4} orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#ccc"/></marker></defs>
     <text x={180} y={12} textAnchor="middle" fill="#333" fontSize={7} fontWeight={600} letterSpacing={1.5} style={{fontFamily:SF}}>SHERRY PRODUCTION & STYLES</text>
 
