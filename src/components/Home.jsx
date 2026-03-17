@@ -63,6 +63,50 @@ export default function Home({ onGo, stats, onResetProgress }) {
         </div>
       </div>
 
+      {/* ── THEMATIC STUDY ── */}
+      <div style={{ padding: "14px 20px 6px" }}>
+        <h2 style={{ fontSize: 11, letterSpacing: 4, color: "#b08020", fontWeight: 600, marginBottom: 10, paddingBottom: 6, borderBottom: "1px solid #eee" }}>THEMATIC STUDY</h2>
+        <div className="card-grid">
+          <div className="cc" onClick={() => onGo("exam")} style={{ background: "linear-gradient(135deg,#f0f0fa,#fff)" }}>
+            <div style={{ padding: "12px 14px 10px" }}>
+              <div style={{ fontSize: 18, marginBottom: 2 }}>🎯</div>
+              <b style={{ fontSize: 13, color: "#446" }}>Practice Exam</b>
+              <div style={{ fontSize: 9, color: "#88a", marginTop: 1 }}>Timed · Randomised · All regions</div>
+            </div>
+          </div>
+          <div className="cc" onClick={() => onGo("compare")} style={{ background: "linear-gradient(135deg,#f0faf0,#fff)" }}>
+            <div style={{ padding: "12px 14px 10px" }}>
+              <div style={{ fontSize: 18, marginBottom: 2 }}>⚖️</div>
+              <b style={{ fontSize: 13, color: "#363" }}>Compare Regions</b>
+              <div style={{ fontSize: 9, color: "#8a8", marginTop: 1 }}>Side-by-side · Climate · Grapes · Soil</div>
+            </div>
+          </div>
+        </div>
+
+        <ProgressWidget stats={stats} onReset={onResetProgress} />
+      </div>
+
+      {/* ── SPARKLING & FORTIFIED WINES ── */}
+      <div style={{ padding: "18px 20px 10px" }}>
+        <h2 style={{ fontSize: 11, letterSpacing: 4, color: "#b08020", fontWeight: 600, marginBottom: 10, paddingBottom: 6, borderBottom: "1px solid #eee" }}>SPARKLING & FORTIFIED WINES</h2>
+        <div className="card-grid">
+          <div className="cc" onClick={() => onGo("sparkling")} style={{ background: "linear-gradient(135deg,#f0f6ff,#fff)" }}>
+            <div style={{ padding: "12px 14px 10px" }}>
+              <div style={{ fontSize: 18, marginBottom: 2 }}>🥂</div>
+              <b style={{ fontSize: 13, color: "#336" }}>Sparkling Wines</b>
+              <div style={{ fontSize: 9, color: "#8aa", marginTop: 1 }}>Methods · Champagne · Cava · Prosecco</div>
+            </div>
+          </div>
+          <div className="cc" onClick={() => onGo("fortified")} style={{ background: "linear-gradient(135deg,#fff4f0,#fff)" }}>
+            <div style={{ padding: "12px 14px 10px" }}>
+              <div style={{ fontSize: 18, marginBottom: 2 }}>🍷</div>
+              <b style={{ fontSize: 13, color: "#633" }}>Fortified Wines</b>
+              <div style={{ fontSize: 9, color: "#a88", marginTop: 1 }}>Port · Sherry · Madeira · VDN</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── STILL WINES ── */}
       <div style={{ padding: "18px 20px 0" }}>
         <h2 style={{ fontSize: 11, letterSpacing: 4, color: "#b08020", fontWeight: 600, marginBottom: 4, paddingBottom: 6, borderBottom: "1px solid #eee" }}>STILL WINES</h2>
@@ -89,50 +133,6 @@ export default function Home({ onGo, stats, onResetProgress }) {
           </div>
         </div>
       )}
-
-      {/* ── SPARKLING & FORTIFIED WINES ── */}
-      <div style={{ padding: "18px 20px 10px" }}>
-        <h2 style={{ fontSize: 11, letterSpacing: 4, color: "#b08020", fontWeight: 600, marginBottom: 10, paddingBottom: 6, borderBottom: "1px solid #eee" }}>SPARKLING & FORTIFIED WINES</h2>
-        <div className="card-grid">
-          <div className="cc" onClick={() => onGo("sparkling")} style={{ background: "linear-gradient(135deg,#f0f6ff,#fff)" }}>
-            <div style={{ padding: "12px 14px 10px" }}>
-              <div style={{ fontSize: 18, marginBottom: 2 }}>🥂</div>
-              <b style={{ fontSize: 13, color: "#336" }}>Sparkling Wines</b>
-              <div style={{ fontSize: 9, color: "#8aa", marginTop: 1 }}>Methods · Champagne · Cava · Prosecco</div>
-            </div>
-          </div>
-          <div className="cc" onClick={() => onGo("fortified")} style={{ background: "linear-gradient(135deg,#fff4f0,#fff)" }}>
-            <div style={{ padding: "12px 14px 10px" }}>
-              <div style={{ fontSize: 18, marginBottom: 2 }}>🍷</div>
-              <b style={{ fontSize: 13, color: "#633" }}>Fortified Wines</b>
-              <div style={{ fontSize: 9, color: "#a88", marginTop: 1 }}>Port · Sherry · Madeira · VDN</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── PRACTICE ── */}
-      <div style={{ padding: "18px 20px 6px" }}>
-        <h2 style={{ fontSize: 11, letterSpacing: 4, color: "#b08020", fontWeight: 600, marginBottom: 10, paddingBottom: 6, borderBottom: "1px solid #eee" }}>PRACTICE</h2>
-        <div className="card-grid">
-          <div className="cc" onClick={() => onGo("exam")} style={{ background: "linear-gradient(135deg,#f0f0fa,#fff)" }}>
-            <div style={{ padding: "12px 14px 10px" }}>
-              <div style={{ fontSize: 18, marginBottom: 2 }}>🎯</div>
-              <b style={{ fontSize: 13, color: "#446" }}>Practice Exam</b>
-              <div style={{ fontSize: 9, color: "#88a", marginTop: 1 }}>Timed · Randomised · All regions</div>
-            </div>
-          </div>
-          <div className="cc" onClick={() => onGo("compare")} style={{ background: "linear-gradient(135deg,#f0faf0,#fff)" }}>
-            <div style={{ padding: "12px 14px 10px" }}>
-              <div style={{ fontSize: 18, marginBottom: 2 }}>⚖️</div>
-              <b style={{ fontSize: 13, color: "#363" }}>Compare Regions</b>
-              <div style={{ fontSize: 9, color: "#8a8", marginTop: 1 }}>Side-by-side · Climate · Grapes · Soil</div>
-            </div>
-          </div>
-        </div>
-
-        <ProgressWidget stats={stats} onReset={onResetProgress} />
-      </div>
     </div>
   );
 }
