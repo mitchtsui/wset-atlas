@@ -54,7 +54,7 @@ export default function Home({ onGo, stats, onResetProgress }) {
         <h1 className="page-title">Wine Regions of the World</h1>
         <p className="page-subtitle">Interactive study atlas with detailed maps, geographic features, village markers, and exam prep. Tap a country to explore.</p>
         <div style={{ display: "flex", justifyContent: "center", gap: "clamp(12px,4vw,28px)", marginTop: 16, flexWrap: "wrap" }}>
-          {[{ n: "15", l: "Countries" }, { n: "70+", l: "Regions" }, { n: "150+", l: "Villages" }, { n: "370+", l: "Practice Q's" }].map(s =>
+          {[{ n: "15", l: "Countries" }, { n: "70+", l: "Regions" }, { n: "150+", l: "Villages" }, { n: "470+", l: "Practice Q's" }].map(s =>
             <div key={s.l}>
               <div style={{ fontSize: 20, fontWeight: 300, color: "#b08020" }}>{s.n}</div>
               <div style={{ fontSize: 8, letterSpacing: 2, color: "#bbb" }}>{s.l}</div>
@@ -78,7 +78,7 @@ export default function Home({ onGo, stats, onResetProgress }) {
             <div style={{ padding: "12px 14px 10px" }}>
               <div style={{ fontSize: 18, marginBottom: 2 }}>✍️</div>
               <b style={{ fontSize: 13, color: "#654" }}>Practice Short Qs</b>
-              <div style={{ fontSize: 9, color: "#a98", marginTop: 1 }}>26 topics · Model answers · Key points</div>
+              <div style={{ fontSize: 9, color: "#a98", marginTop: 1 }}>29 topics · Model answers · Key points</div>
             </div>
           </div>
           <div className="cc" onClick={() => onGo("compare")} style={{ background: "linear-gradient(135deg,#408a400a,#fff)" }}>
