@@ -64,17 +64,17 @@ export default function Home({ onGo, stats, onResetProgress }) {
       </div>
 
       {/* ── THEMATIC STUDY ── */}
-      <div style={{ padding: "14px 20px 6px" }}>
+      <div style={{ padding: "18px 20px 10px" }}>
         <h2 style={{ fontSize: 11, letterSpacing: 4, color: "#b08020", fontWeight: 600, marginBottom: 10, paddingBottom: 6, borderBottom: "1px solid #eee" }}>THEMATIC STUDY</h2>
         <div className="card-grid">
-          <div className="cc" onClick={() => onGo("exam")} style={{ background: "linear-gradient(135deg,#f0f0fa,#fff)" }}>
+          <div className="cc" onClick={() => onGo("exam")} style={{ background: "linear-gradient(135deg,#6060b00a,#fff)" }}>
             <div style={{ padding: "12px 14px 10px" }}>
               <div style={{ fontSize: 18, marginBottom: 2 }}>🎯</div>
               <b style={{ fontSize: 13, color: "#446" }}>Practice Exam</b>
               <div style={{ fontSize: 9, color: "#88a", marginTop: 1 }}>Timed · Randomised · All regions</div>
             </div>
           </div>
-          <div className="cc" onClick={() => onGo("compare")} style={{ background: "linear-gradient(135deg,#f0faf0,#fff)" }}>
+          <div className="cc" onClick={() => onGo("compare")} style={{ background: "linear-gradient(135deg,#408a400a,#fff)" }}>
             <div style={{ padding: "12px 14px 10px" }}>
               <div style={{ fontSize: 18, marginBottom: 2 }}>⚖️</div>
               <b style={{ fontSize: 13, color: "#363" }}>Compare Regions</b>
@@ -90,14 +90,14 @@ export default function Home({ onGo, stats, onResetProgress }) {
       <div style={{ padding: "18px 20px 10px" }}>
         <h2 style={{ fontSize: 11, letterSpacing: 4, color: "#b08020", fontWeight: 600, marginBottom: 10, paddingBottom: 6, borderBottom: "1px solid #eee" }}>SPARKLING & FORTIFIED WINES</h2>
         <div className="card-grid">
-          <div className="cc" onClick={() => onGo("sparkling")} style={{ background: "linear-gradient(135deg,#f0f6ff,#fff)" }}>
+          <div className="cc" onClick={() => onGo("sparkling")} style={{ background: "linear-gradient(135deg,#4682b40a,#fff)" }}>
             <div style={{ padding: "12px 14px 10px" }}>
               <div style={{ fontSize: 18, marginBottom: 2 }}>🥂</div>
               <b style={{ fontSize: 13, color: "#336" }}>Sparkling Wines</b>
               <div style={{ fontSize: 9, color: "#8aa", marginTop: 1 }}>Methods · Champagne · Cava · Prosecco</div>
             </div>
           </div>
-          <div className="cc" onClick={() => onGo("fortified")} style={{ background: "linear-gradient(135deg,#fff4f0,#fff)" }}>
+          <div className="cc" onClick={() => onGo("fortified")} style={{ background: "linear-gradient(135deg,#b040400a,#fff)" }}>
             <div style={{ padding: "12px 14px 10px" }}>
               <div style={{ fontSize: 18, marginBottom: 2 }}>🍷</div>
               <b style={{ fontSize: 13, color: "#633" }}>Fortified Wines</b>
@@ -112,7 +112,7 @@ export default function Home({ onGo, stats, onResetProgress }) {
         <h2 style={{ fontSize: 11, letterSpacing: 4, color: "#b08020", fontWeight: 600, marginBottom: 4, paddingBottom: 6, borderBottom: "1px solid #eee" }}>STILL WINES</h2>
       </div>
       {CONTS.map(co =>
-        <div key={co} style={{ padding: "12px 20px 10px" }}>
+        <div key={co} style={{ padding: "10px 20px 10px" }}>
           <h3 style={{ fontSize: 10, letterSpacing: 3, color: "#bbb", textTransform: "uppercase", fontWeight: 600, marginBottom: 10 }}>{co}</h3>
           <div className="card-grid">
             {byC[co].map(([k, c]) =>
