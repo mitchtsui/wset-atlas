@@ -116,7 +116,7 @@ export default function Home({ onGo, stats, onResetProgress }) {
           <h3 style={{ fontSize: 10, letterSpacing: 3, color: "#bbb", textTransform: "uppercase", fontWeight: 600, marginBottom: 10 }}>{co}</h3>
           <div className="card-grid">
             {byC[co].map(([k, c]) =>
-              <div key={k} className="cc" onClick={() => onGo(k)}>
+              <div key={k} className="cc" onClick={() => onGo(k)} style={{ background: `linear-gradient(135deg,${c.color}0a,#fff)` }}>
                 <div style={{ padding: "12px 14px 8px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
                     <div style={{ width: 10, height: 10, borderRadius: 3, background: c.color }} />
