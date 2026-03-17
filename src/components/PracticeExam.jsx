@@ -1,12 +1,30 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { GUIDE } from "../data/guide.js";
+import { PRACTICE_MC } from "../data/practiceMC.js";
 
-/* Gather all MC questions with chapter info */
+/* Gather all MC questions: PRACTICE_MC pool + GUIDE chapter MCs, deduplicated */
 function getAllMC() {
   const all = [];
+  const seen = new Set();
+
+  // First add all PRACTICE_MC questions (primary source)
+  for (const q of PRACTICE_MC) {
+    const key = q.q.slice(0, 50).toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      all.push({ ...q, chName: "Practice Bank" });
+    }
+  }
+
+  // Then add GUIDE chapter MCs (secondary, fills gaps)
   for (const [ch, data] of Object.entries(GUIDE)) {
     for (let i = 0; i < (data.mc || []).length; i++) {
-      all.push({ ...data.mc[i], chapter: ch, chName: data.name, idx: i });
+      const q = data.mc[i];
+      const key = q.q.slice(0, 50).toLowerCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        all.push({ ...q, chapter: ch, chName: data.name, idx: i });
+      }
     }
   }
   return all;
@@ -28,12 +46,11 @@ function formatTime(ms) {
   return `${m}:${sec.toString().padStart(2, "0")}`;
 }
 
-const EXAM_SIZES = [10, 20, 30];
-const TIME_LIMITS = { 10: 10, 20: 18, 30: 25 }; // minutes
+const EXAM_SIZES = [50, 75, 100, "All"];
 
 export default function PracticeExam({ onBack, onRecordExam }) {
   const [phase, setPhase] = useState("setup"); // setup | active | review
-  const [size, setSize] = useState(20);
+  const [size, setSize] = useState(50);
   const [questions, setQuestions] = useState([]);
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -41,6 +58,12 @@ export default function PracticeExam({ onBack, onRecordExam }) {
   const [elapsed, setElapsed] = useState(0);
   const [timeLimit, setTimeLimit] = useState(null);
   const timerRef = useRef(null);
+  const totalPool = useRef(0);
+
+  // Compute pool size once
+  useEffect(() => {
+    totalPool.current = getAllMC().length;
+  }, []);
 
   // Timer
   useEffect(() => {
@@ -59,17 +82,18 @@ export default function PracticeExam({ onBack, onRecordExam }) {
 
   const startExam = useCallback((timed) => {
     const all = getAllMC();
-    const pool = shuffle(all).slice(0, size);
+    const count = size === "All" ? all.length : Math.min(size, all.length);
+    const pool = shuffle(all).slice(0, count);
     setQuestions(pool);
     setAnswers({});
     setCurrent(0);
     setStartTime(Date.now());
-    setTimeLimit(timed ? TIME_LIMITS[size] * 60 * 1000 : null);
+    setTimeLimit(timed ? 60 * 60 * 1000 : null); // 60 minutes or unlimited
     setPhase("active");
   }, [size]);
 
   const selectAnswer = (qIdx, optIdx) => {
-    if (answers[qIdx] !== undefined) return; // already answered
+    if (answers[qIdx] !== undefined) return;
     setAnswers(prev => ({ ...prev, [qIdx]: optIdx }));
   };
 
@@ -78,7 +102,6 @@ export default function PracticeExam({ onBack, onRecordExam }) {
     const finalElapsed = Date.now() - startTime;
     setElapsed(finalElapsed);
     setPhase("review");
-    // Record to progress
     const score = questions.reduce((acc, q, i) => {
       const ai = "abcd".indexOf(q.a);
       return acc + (answers[i] === ai ? 1 : 0);
@@ -98,9 +121,9 @@ export default function PracticeExam({ onBack, onRecordExam }) {
     return (
       <div className="exam-page fade-in">
         <div className="exam-header">
-          <div className="section-label" style={{ color: "#6060b0" }}>PRACTICE EXAM</div>
+          <div className="section-label" style={{ color: "#6060b0" }}>PRACTICE MCs</div>
           <h1 className="page-title">Test Your Knowledge</h1>
-          <p className="page-subtitle">Randomised multiple-choice questions from all 26 chapters</p>
+          <p className="page-subtitle">Randomised multiple-choice questions — {totalPool.current || getAllMC().length} in the bank</p>
         </div>
         <div className="exam-setup">
           <div className="exam-setup-section">
@@ -108,22 +131,22 @@ export default function PracticeExam({ onBack, onRecordExam }) {
             <div className="exam-size-row">
               {EXAM_SIZES.map(n => (
                 <button key={n} className={`exam-size-btn ${size === n ? "active" : ""}`}
-                  onClick={() => setSize(n)}>{n}</button>
+                  onClick={() => setSize(n)}>{n === "All" ? "All" : n}</button>
               ))}
             </div>
           </div>
           <div className="exam-setup-section">
-            <div className="section-label">MODE</div>
+            <div className="section-label">TIME</div>
             <div className="exam-mode-row">
               <button className="exam-mode-btn" onClick={() => startExam(true)}>
                 <span className="exam-mode-icon">⏱</span>
-                <b>Timed</b>
-                <span className="exam-mode-detail">{TIME_LIMITS[size]} minutes</span>
+                <b>60 Minutes</b>
+                <span className="exam-mode-detail">Timed countdown</span>
               </button>
               <button className="exam-mode-btn" onClick={() => startExam(false)}>
                 <span className="exam-mode-icon">📝</span>
-                <b>Untimed</b>
-                <span className="exam-mode-detail">No pressure</span>
+                <b>Unlimited</b>
+                <span className="exam-mode-detail">No time limit</span>
               </button>
             </div>
           </div>
@@ -199,7 +222,7 @@ export default function PracticeExam({ onBack, onRecordExam }) {
           {current < questions.length - 1 ? (
             <button className="exam-nav-btn primary" onClick={() => setCurrent(c => c + 1)}>Next →</button>
           ) : (
-            <button className="exam-nav-btn finish" onClick={finishExam}>Finish Exam</button>
+            <button className="exam-nav-btn finish" onClick={finishExam}>Finish</button>
           )}
         </div>
 
