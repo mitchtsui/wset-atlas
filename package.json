@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.0",
+    "javascript-obfuscator": "^4.1.1",
     "vite": "^5.0.0",
     "vite-plugin-javascript-obfuscator": "^1.0.0",
     "terser": "^5.31.0"
