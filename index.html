@@ -7,9 +7,35 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Anti-iframe header (also set this in Vercel headers / _headers) -->
+    <meta http-equiv="X-Frame-Options" content="DENY" />
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Runtime protection — runs before React loads -->
+    <script>
+    !function(){"use strict";
+    // Console warning
+    var w=function(){console.log("%c⚠ WSET L3 Wine Atlas","color:#8b0000;font-size:20px;font-weight:bold;font-family:serif"),console.log("%cThis application is protected by copyright.\nUnauthorised copying, redistribution, or reverse-engineering is prohibited.","color:#555;font-size:13px;font-family:serif")};w();
+    // Block right-click
+    document.addEventListener("contextmenu",function(e){e.preventDefault()});
+    // Block keyboard shortcuts (F12, Ctrl+U, Ctrl+S, Ctrl+Shift+I/J/C)
+    document.addEventListener("keydown",function(e){if("F12"===e.key||(e.ctrlKey||e.metaKey)&&"u"===e.key||(e.ctrlKey||e.metaKey)&&"s"===e.key||(e.ctrlKey||e.metaKey)&&e.shiftKey&&-1!==["I","i","J","j","C","c"].indexOf(e.key))return e.preventDefault(),!1});
+    // Dev tools detection via getter trap
+    !function(){var el=new Image;Object.defineProperty(el,"id",{get:function(){document.title="🔒",w()}}),setInterval(function(){console.log("%c",el)},4e3)}();
+    // Anti-iframe
+    if(window.top!==window.self)try{window.top.location=window.self.location}catch(e){document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:serif;color:#8b0000;font-size:18px">This app cannot be embedded in an iframe.</div>'}
+    // Disable text selection (except inputs)
+    var s=document.createElement("style");s.textContent="body{-webkit-user-select:none;-moz-user-select:none;user-select:none}input,textarea,pre,code{-webkit-user-select:text;-moz-user-select:text;user-select:text}",document.head.appendChild(s);
+    // Disable drag
+    document.addEventListener("dragstart",function(e){e.preventDefault()});
+    // Disable copy/cut
+    document.addEventListener("copy",function(e){e.preventDefault()});document.addEventListener("cut",function(e){e.preventDefault()});
+    }();
+    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
