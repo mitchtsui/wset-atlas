@@ -1,163 +1,148 @@
 // Sparkling & Fortified production flow charts (SVG)
-// All text uses Crimson Text to match app typography.
-
 const F="'Crimson Text',Georgia,serif";
 
+/* ═══════════════════════════════════════════════════════════
+   SPARKLING WINES — Horizontal lane approach
+   Each method gets a clean row showing ONLY its unique steps.
+   Shared base (grapes → press → juice → ferment → base wine)
+   is shown once at top, then each lane branches from there.
+   ═══════════════════════════════════════════════════════════ */
+
 export function MethodChart(){
-  const proc=(x,y,w,h,lines)=><g key={"p"+x+","+y}>
-    <rect x={x} y={y} width={w} height={h} rx={4} fill="#eef2f0" stroke="#a0b0a8" strokeWidth={.6}/>
-    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*10} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={5.5} style={{fontFamily:F}}>{l}</text>)}
+  /* Box helpers — generous sizing */
+  const box=(x,y,w,h,lines,bg,stroke)=><g key={"b"+x+y}>
+    <rect x={x} y={y} width={w} height={h} rx={4} fill={bg||"#f0f3f0"} stroke={stroke||"#b0b8b0"} strokeWidth={.6}/>
+    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*11} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={6} style={{fontFamily:F}}>{l}</text>)}
   </g>;
-  const io=(x,y,w,h,lines,accent)=><g key={"i"+x+","+y}>
-    <rect x={x} y={y} width={w} height={h} rx={h/2} fill={accent?"#fceabb":"#fdf6d8"} stroke={accent?"#bfa030":"#d0c880"} strokeWidth={accent?.8:.5}/>
-    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*10} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={5.5} fontWeight={accent?600:400} style={{fontFamily:F}}>{l}</text>)}
+  const pill=(x,y,w,h,lines,bg,stroke)=><g key={"p"+x+y}>
+    <rect x={x} y={y} width={w} height={h} rx={h/2} fill={bg||"#fdf6d8"} stroke={stroke||"#d0c880"} strokeWidth={.6}/>
+    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*11} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={6} fontWeight={600} style={{fontFamily:F}}>{l}</text>)}
   </g>;
-  const fin=(x,y,w,h,lines,col)=><g key={"f"+x+","+y}>
-    <rect x={x} y={y} width={w} height={h} rx={6} fill={col+"22"} stroke={col} strokeWidth={.8}/>
-    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*9} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={5} fontWeight={i===0?700:400} style={{fontFamily:F}}>{l}</text>)}
-  </g>;
-  const ar=(x1,y1,x2,y2)=><line key={"a"+x1+","+y1+"-"+x2+","+y2} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#888" strokeWidth={.6} markerEnd="url(#sm)"/>;
-  const bend=(id,d)=><path key={id} d={d} fill="none" stroke="#888" strokeWidth={.6} markerEnd="url(#sm)"/>;
+  const ar=(x1,y1,x2,y2)=><line key={"a"+x1+y1+x2+y2} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#999" strokeWidth={.7} markerEnd="url(#sm)"/>;
 
-  /* Layout: 6 columns, generous spacing */
-  const W=580, CX=190;
-  const C1=42,C2=128,C3=218,C4=308,C5=400,C6=490;
-  const BW=80, BH=22, GAP=10;
+  const W=520, MID=130; /* left edge for step boxes */
 
-  return <svg viewBox={`0 0 ${W} 580`} style={{width:"100%",display:"block",background:"#f8fafc",borderRadius:6,border:"1px solid #e0e4e8"}}>
-    <defs><marker id="sm" viewBox="0 0 6 6" refX={5} refY={3} markerWidth={4} markerHeight={4} orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#888"/></marker></defs>
+  return <svg viewBox={`0 0 ${W} 530`} style={{width:"100%",display:"block",background:"#f8fafc",borderRadius:8,border:"1px solid #e0e4e8"}}>
+    <defs><marker id="sm" viewBox="0 0 6 6" refX={5} refY={3} markerWidth={4} markerHeight={4} orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#999"/></marker></defs>
 
-    <text x={W/2} y={18} textAnchor="middle" fill="#333" fontSize={9} fontWeight={600} letterSpacing={2} style={{fontFamily:F}}>MAKING SPARKLING WINE</text>
+    <text x={W/2} y={20} textAnchor="middle" fill="#333" fontSize={10} fontWeight={600} letterSpacing={2} style={{fontFamily:F}}>MAKING SPARKLING WINE</text>
 
-    {/* Legend */}
-    <rect x={W-90} y={10} width={10} height={8} rx={2} fill="#eef2f0" stroke="#a0b0a8" strokeWidth={.4}/>
-    <text x={W-77} y={16} fill="#999" fontSize={4.5} style={{fontFamily:F}}>process</text>
-    <rect x={W-90} y={22} width={10} height={8} rx={4} fill="#fdf6d8" stroke="#d0c880" strokeWidth={.4}/>
-    <text x={W-77} y={28} fill="#999" fontSize={4.5} style={{fontFamily:F}}>input / output</text>
+    {/* ═══ SHARED BASE PATH ═══ */}
+    <rect x={12} y={34} width={W-24} height={56} rx={6} fill="#fff" stroke="#dde0dd" strokeWidth={.5}/>
+    <text x={22} y={50} fill="#6898b8" fontSize={7} fontWeight={700} style={{fontFamily:F}}>ALL METHODS START HERE</text>
+    <text x={22} y={62} fill="#888" fontSize={5.5} style={{fontFamily:F}}>Grapes → press & clarify → juice → first fermentation → base wine → blending</text>
+    <text x={22} y={76} fill="#aaa" fontSize={5} fontStyle="italic" style={{fontFamily:F}}>Exception: Asti & Ancestral branch earlier (from juice or partial ferment) — see below</text>
 
-    {/* ═══ SHARED TOP ═══ */}
-    {io(CX-50,38,100,18,["grapes"],true)}
-    {ar(CX,56,CX,64)}
-    {proc(CX-65,64,130,24,["press the grapes","and clarify the juice"])}
-    {ar(CX,88,CX,96)}
-    {io(CX-40,96,80,18,["juice"])}
-    {ar(CX,114,CX,122)}
+    {/* ═══ METHOD LANES ═══ */}
+    {/* Each lane: coloured label on left, unique steps as connected boxes on right */}
 
-    {/* Main: 1st fermentation → base wine → blending */}
-    {proc(CX-55,122,110,BH,["first fermentation"])}
-    {ar(CX,144,CX,152)}
-    {io(CX-45,152,90,18,["base wine"])}
-    {ar(CX,170,CX,178)}
-    {proc(CX-45,178,90,BH,["blending"])}
+    {/* ── 1. TRADITIONAL ── */}
+    {(() => { const Y=104, C="#4682B4";
+      return <g key="trad">
+        <rect x={12} y={Y} width={W-24} height={58} rx={6} fill="#f6f9ff" stroke={C+"40"} strokeWidth={.5}/>
+        <text x={22} y={Y+14} fill={C} fontSize={8} fontWeight={700} style={{fontFamily:F}}>TRADITIONAL</text>
+        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Champagne, Cava, Crémant, Cap Classique</text>
+        {box(MID,Y+32,80,20,["2nd ferm","in BOTTLE"],C+"15",C)}
+        {ar(MID+80,Y+42,MID+88,Y+42)}
+        {box(MID+90,Y+32,70,20,["lees ageing","(autolysis)"],C+"15",C)}
+        {ar(MID+160,Y+42,MID+168,Y+42)}
+        {box(MID+170,Y+32,50,20,["riddle"],"#f0f3f0")}
+        {ar(MID+220,Y+42,MID+228,Y+42)}
+        {box(MID+230,Y+32,58,20,["disgorge"],"#f0f3f0")}
+        {ar(MID+288,Y+42,MID+296,Y+42)}
+        {box(MID+298,Y+32,50,20,["dosage"],"#f0f3f0")}
+        <text x={W-22} y={Y+46} textAnchor="end" fill={C} fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>★★★</text>
+      </g>;
+    })()}
 
-    {/* ═══ RIGHT BRANCH from juice: Asti + Carbonated ═══ */}
-    {bend("jCh",`M${CX+40},105 L345,105 L345,122`)}
-    {proc(310,122,70,BH,["chill juice"])}
-    {ar(345,144,345,152)}
-    {io(310,152,70,18,["store juice"])}
-    {ar(345,170,345,178)}
-    {proc(310,178,70,BH,["partial","fermentation"])}
-    {ar(345,200,345,216)}
+    {/* ── 2. TRANSFER ── */}
+    {(() => { const Y=172, C="#B8860B";
+      return <g key="transfer">
+        <rect x={12} y={Y} width={W-24} height={58} rx={6} fill="#fdfaf4" stroke={C+"40"} strokeWidth={.5}/>
+        <text x={22} y={Y+14} fill={C} fontSize={8} fontWeight={700} style={{fontFamily:F}}>TRANSFER</text>
+        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Some New World, large-format bottles</text>
+        {box(MID,Y+32,80,20,["2nd ferm","in BOTTLE"],C+"15",C)}
+        {ar(MID+80,Y+42,MID+88,Y+42)}
+        {box(MID+90,Y+32,70,20,["lees ageing"],"#f0f3f0")}
+        {ar(MID+160,Y+42,MID+168,Y+42)}
+        {box(MID+170,Y+32,72,20,["empty to TANK","& filter"],C+"15",C)}
+        {ar(MID+242,Y+42,MID+250,Y+42)}
+        {box(MID+252,Y+32,58,20,["re-bottle"],"#f0f3f0")}
+        <text x={W-22} y={Y+46} textAnchor="end" fill={C} fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>★★</text>
+      </g>;
+    })()}
 
-    {/* Asti branch */}
-    {bend("jAs",`M${CX+40},105 L460,105 L460,122`)}
-    {proc(420,122,80,BH,["partial","fermentation"])}
-    {ar(460,144,460,152)}
-    {io(418,152,84,18,["partially fermented","juice bottled"])}
-    {ar(460,170,460,192)}
+    {/* ── 3. TANK / CHARMAT ── */}
+    {(() => { const Y=240, C="#2E8B57";
+      return <g key="tank">
+        <rect x={12} y={Y} width={W-24} height={58} rx={6} fill="#f4f8f4" stroke={C+"40"} strokeWidth={.5}/>
+        <text x={22} y={Y+14} fill={C} fontSize={8} fontWeight={700} style={{fontFamily:F}}>TANK / CHARMAT</text>
+        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Prosecco, most Sekt</text>
+        {box(MID,Y+32,80,20,["2nd ferm","in TANK"],C+"15",C)}
+        {ar(MID+80,Y+42,MID+88,Y+42)}
+        {box(MID+90,Y+32,52,20,["filter"],"#f0f3f0")}
+        {ar(MID+142,Y+42,MID+150,Y+42)}
+        {box(MID+152,Y+32,52,20,["bottle"],"#f0f3f0")}
+        <text x={MID+230} y={Y+38} fill="#666" fontSize={5} style={{fontFamily:F}}>No lees ageing</text>
+        <text x={MID+230} y={Y+48} fill="#666" fontSize={5} style={{fontFamily:F}}>→ fruity, fresh</text>
+        <text x={W-22} y={Y+46} textAnchor="end" fill={C} fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>★</text>
+      </g>;
+    })()}
 
-    {/* Ancestral branch (from partially fermented juice) */}
-    {bend("jAnc",`M460,170 L${C6},170 L${C6},192`)}
+    {/* ── 4. CARBONATED ── */}
+    {(() => { const Y=308, C="#888";
+      return <g key="carb">
+        <rect x={12} y={Y} width={W-24} height={52} rx={6} fill="#f6f6f6" stroke={C+"40"} strokeWidth={.5}/>
+        <text x={22} y={Y+14} fill={C} fontSize={8} fontWeight={700} style={{fontFamily:F}}>CARBONATED</text>
+        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Cheapest sparkling wines</text>
+        {box(MID,Y+28,80,20,["inject CO₂","into wine"],C+"20",C)}
+        {ar(MID+80,Y+38,MID+88,Y+38)}
+        {box(MID+90,Y+28,52,20,["bottle"],"#f0f3f0")}
+        <text x={MID+168} y={Y+34} fill="#666" fontSize={5} style={{fontFamily:F}}>No fermentation for fizz.</text>
+        <text x={MID+168} y={Y+44} fill="#666" fontSize={5} style={{fontFamily:F}}>Coarse bubbles, dissipate fast.</text>
+      </g>;
+    })()}
 
-    {/* ═══ liqueur de tirage ═══ */}
-    {io(CX-5,204,110,16,["liqueur de tirage"],false)}
+    {/* ── 5. ASTI ── */}
+    {(() => { const Y=370, C="#C89520";
+      return <g key="asti">
+        <rect x={12} y={Y} width={W-24} height={58} rx={6} fill="#fdf8ee" stroke={C+"40"} strokeWidth={.5}/>
+        <text x={22} y={Y+14} fill={C} fontSize={8} fontWeight={700} style={{fontFamily:F}}>ASTI METHOD</text>
+        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Asti, Moscato d'Asti (Moscato Bianco)</text>
+        <text x={MID} y={Y+36} fill="#555" fontSize={5.5} style={{fontFamily:F}}>Branches from JUICE (before base wine):</text>
+        {box(MID,Y+40,110,20,["ONE fermentation in","sealed tank, STOPPED early"],C+"15",C)}
+        {ar(MID+110,Y+50,MID+118,Y+50)}
+        {box(MID+120,Y+40,52,20,["bottle"],"#f0f3f0")}
+        <text x={MID+198} y={Y+46} fill="#666" fontSize={5} style={{fontFamily:F}}>Low alcohol (5-7%),</text>
+        <text x={MID+198} y={Y+56} fill="#666" fontSize={5} style={{fontFamily:F}}>sweet, grapey, aromatic</text>
+      </g>;
+    })()}
 
-    {/* ═══ TRADITIONAL (C1) ═══ */}
-    {bend("bTr",`M${CX-45},189 L${C1},189 L${C1},218`)}
-    {proc(C1-BW/2,218,BW,BH,["bottle"])}
-    {ar(C1,240,C1,250)}
-    {proc(C1-BW/2-10,250,BW+20,24,["second fermentation","in bottle"])}
-    {ar(C1,274,C1,284)}
-    {proc(C1-BW/2-10,284,BW+20,24,["store wine","on the lees"])}
-    {ar(C1,308,C1,318)}
-    {proc(C1-35,318,70,BH,["riddle"])}
-    {ar(C1,340,C1,350)}
-    {proc(C1-35,350,70,BH,["disgorge"])}
-    {/* l'expédition */}
-    {io(C1+42,344,68,14,["liqueur d'expédition"],false)}
-    {bend("leTr",`M${C1+42},351 L${C1+35},351`)}
-    {ar(C1,372,C1,382)}
-    {proc(C1-30,382,60,BH,["cork"])}
-    {ar(C1,404,C1,420)}
+    {/* ── 6. ANCESTRAL ── */}
+    {(() => { const Y=438, C="#8B5BA0";
+      return <g key="anc">
+        <rect x={12} y={Y} width={W-24} height={58} rx={6} fill="#f8f4fc" stroke={C+"40"} strokeWidth={.5}/>
+        <text x={22} y={Y+14} fill={C} fontSize={8} fontWeight={700} style={{fontFamily:F}}>ANCESTRAL (Pét-Nat)</text>
+        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Natural wine producers, various regions</text>
+        <text x={MID} y={Y+36} fill="#555" fontSize={5.5} style={{fontFamily:F}}>Branches from partially fermented juice:</text>
+        {box(MID,Y+40,110,20,["fermentation FINISHES","in sealed bottle"],C+"15",C)}
+        {ar(MID+110,Y+50,MID+118,Y+50)}
+        {box(MID+120,Y+40,78,20,["riddle & disgorge","(optional)"],"#f0f3f0")}
+        <text x={MID+224} y={Y+46} fill="#666" fontSize={5} style={{fontFamily:F}}>Often cloudy, funky.</text>
+        <text x={MID+224} y={Y+56} fill="#666" fontSize={5} style={{fontFamily:F}}>No dosage.</text>
+      </g>;
+    })()}
 
-    {/* ═══ TRANSFER (C2) ═══ */}
-    {bend("bTf",`M${CX-45},189 L${C2},189 L${C2},218`)}
-    {proc(C2-BW/2,218,BW,BH,["bottle"])}
-    {ar(C2,240,C2,250)}
-    {proc(C2-BW/2-10,250,BW+20,24,["second fermentation","in bottle"])}
-    {ar(C2,274,C2,284)}
-    {proc(C2-BW/2-10,284,BW+20,24,["store wine","on the lees"])}
-    {ar(C2,308,C2,318)}
-    {proc(C2-BW/2-10,318,BW+20,24,["transfer wine","into tanks"])}
-    {ar(C2,342,C2,352)}
-    {proc(C2-30,352,60,BH,["filter"])}
-    {/* l'expédition */}
-    {io(C2+38,346,68,14,["liqueur d'expédition"],false)}
-    {bend("leTf",`M${C2+38},353 L${C2+30},353`)}
-    {ar(C2,374,C2,384)}
-    {proc(C2-30,384,60,BH,["bottle"])}
-    {ar(C2,406,C2,420)}
-
-    {/* ═══ TANK (C3) ═══ */}
-    {bend("bTk",`M${CX+45},189 L${C3},189 L${C3},218`)}
-    {proc(C3-BW/2-10,218,BW+20,24,["second fermentation","in tanks"])}
-    {ar(C3,242,C3,254)}
-    {proc(C3-30,254,60,BH,["filter"])}
-    {/* l'expédition */}
-    {io(C3+38,248,68,14,["liqueur d'expédition"],false)}
-    {bend("leTk",`M${C3+38},255 L${C3+30},255`)}
-    {ar(C3,276,C3,288)}
-    {proc(C3-30,288,60,BH,["bottle"])}
-    {ar(C3,310,C3,420)}
-
-    {/* ═══ CARBONATED (C4) ═══ */}
-    {proc(C4-40,218,80,BH,["inject CO₂"])}
-    {bend("cbAr",`M345,216 L${C4},216 L${C4},218`)}
-    {ar(C4,240,C4,252)}
-    {proc(C4-30,252,60,BH,["filter"])}
-    {ar(C4,274,C4,288)}
-    {proc(C4-30,288,60,BH,["bottle"])}
-    {ar(C4,310,C4,420)}
-
-    {/* ═══ ASTI (C5) ═══ */}
-    {proc(C5-30,218,60,BH,["chill"])}
-    {bend("asAr",`M345,216 L${C5},216 L${C5},218`)}
-    {ar(C5,240,C5,252)}
-    {proc(C5-30,252,60,BH,["filter"])}
-    {ar(C5,274,C5,288)}
-    {proc(C5-30,288,60,BH,["bottle"])}
-    {ar(C5,310,C5,420)}
-
-    {/* ═══ ANCESTRAL (C6) ═══ */}
-    {proc(C6-50,192,100,24,["fermentation","continues in bottle"])}
-    {ar(C6,216,C6,228)}
-    {proc(C6-50,228,100,24,["riddle & disgorge","(optional)"])}
-    {ar(C6,252,C6,420)}
-
-    {/* ═══ FINAL OUTPUTS ═══ */}
-    {fin(C1-38,422,76,32,["Traditional","method","sparkling wine"],"#4682B4")}
-    {fin(C2-38,422,76,32,["Transfer","method","sparkling wine"],"#B8860B")}
-    {fin(C3-38,422,76,32,["Tank method","sparkling","wine"],"#2E8B57")}
-    {fin(C4-38,422,76,32,["Carbonated","sparkling","wine"],"#999")}
-    {fin(C5-38,422,76,32,["Asti method","sparkling","wine"],"#D4A017")}
-    {fin(C6-38,422,76,32,["Ancestral","method","sparkling wine"],"#9B59B6")}
-
-    {/* ═══ NOTES ═══ */}
-    <text x={W/2} y={472} textAnchor="middle" fill="#444" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>AUTOLYSIS = yeast breakdown on lees → biscuit, brioche, toast (Traditional & Transfer only)</text>
-    <text x={W/2} y={486} textAnchor="middle" fill="#444" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>Asti = ONE fermentation only, stopped early → low alcohol, sweet</text>
-    <text x={W/2} y={500} textAnchor="middle" fill="#444" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>Ancestral = Pét-Nat: single fermentation finished in bottle, unfiltered, cloudy</text>
+    {/* ═══ KEY TAKEAWAY ═══ */}
+    <rect x={12} y={504} width={W-24} height={20} rx={4} fill="#e8f0ff"/>
+    <text x={W/2} y={517} textAnchor="middle" fill="#336" fontSize={6} fontWeight={600} style={{fontFamily:F}}>AUTOLYSIS = yeast breakdown on lees → biscuit, brioche, toast — only in Traditional & Transfer methods</text>
   </svg>;
 }
+
+
+/* ═══════════════════════════════════════════════════════════
+   PORT PRODUCTION — unchanged from previous version
+   ═══════════════════════════════════════════════════════════ */
 
 export function PortChart(){
   const bx=(x,y,w,h,lines,f,s,sw)=><g key={lines.join("")+x}>
@@ -221,188 +206,123 @@ export function PortChart(){
   </svg>;
 }
 
+
+/* ═══════════════════════════════════════════════════════════
+   SHERRY PRODUCTION — Clean vertical flow
+   Focuses on the core story: classification → two pathways → styles.
+   PX as a side callout. No exam points (they're in the accordion).
+   ═══════════════════════════════════════════════════════════ */
+
 export function SherryChart(){
-  /* ── Helpers with larger sizes ── */
-  const proc=(x,y,w,h,lines)=><g key={"p"+x+","+y}>
-    <rect x={x} y={y} width={w} height={h} rx={4} fill="#eef2f7" stroke="#a0aab8" strokeWidth={.6}/>
-    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*10} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={5.2} style={{fontFamily:F}}>{l}</text>)}
+  const box=(x,y,w,h,lines,bg,stroke)=><g key={"b"+x+y}>
+    <rect x={x} y={y} width={w} height={h} rx={4} fill={bg||"#eef2f7"} stroke={stroke||"#a0aab8"} strokeWidth={.6}/>
+    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*11} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={6} style={{fontFamily:F}}>{l}</text>)}
   </g>;
-  const io=(x,y,w,h,lines,accent)=><g key={"i"+x+","+y}>
-    <rect x={x} y={y} width={w} height={h} rx={h/2} fill={accent?"#fceabb":"#fdf6d8"} stroke={accent?"#bfa030":"#d0c880"} strokeWidth={accent?.8:.5}/>
-    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*10} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={5.2} fontWeight={accent?600:400} style={{fontFamily:F}}>{l}</text>)}
+  const pill=(x,y,w,h,lines,bg,stroke,bold)=><g key={"p"+x+y}>
+    <rect x={x} y={y} width={w} height={h} rx={h/2} fill={bg||"#fdf6d8"} stroke={stroke||"#d0c880"} strokeWidth={.6}/>
+    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*10} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={6} fontWeight={bold||i===0?600:400} style={{fontFamily:F}}>{l}</text>)}
   </g>;
-  const fin=(x,y,w,h,lines,col)=><g key={"f"+x+","+y}>
-    <rect x={x} y={y} width={w} height={h} rx={h/2.5} fill={col+"22"} stroke={col} strokeWidth={.8}/>
-    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*9} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={5} fontWeight={i===0?700:400} style={{fontFamily:F}}>{l}</text>)}
+  const style=(x,y,w,h,lines,col)=><g key={"s"+x+y}>
+    <rect x={x} y={y} width={w} height={h} rx={h/3} fill={col+"20"} stroke={col} strokeWidth={.8}/>
+    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*10} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={5.5} fontWeight={i===0?700:400} style={{fontFamily:F}}>{l}</text>)}
   </g>;
-  const ar=(x1,y1,x2,y2)=><line key={"a"+x1+","+y1+"-"+x2+","+y2} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#888" strokeWidth={.6} markerEnd="url(#sh2)"/>;
-  const bend=(id,pts)=><path key={id} d={pts} fill="none" stroke="#888" strokeWidth={.6} markerEnd="url(#sh2)"/>;
+  const ar=(x1,y1,x2,y2)=><line key={"a"+x1+y1+x2+y2} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#999" strokeWidth={.7} markerEnd="url(#sh2)"/>;
+  const bend=(id,d)=><path key={id} d={d} fill="none" stroke="#999" strokeWidth={.7} markerEnd="url(#sh2)"/>;
+  const dashbend=(id,d)=><path key={id} d={d} fill="none" stroke="#999" strokeWidth={.6} strokeDasharray="3,2" markerEnd="url(#sh2)"/>;
 
-  const W=560, CX=280;
-  const PXC=80, PALC=395, OLOC=178, FINC=415;
+  const W=460, CX=230;
+  const OLO=140, FIN=320; /* column centres for the two pathways */
 
-  return <svg viewBox={`0 0 ${W} 680`} style={{width:"100%",display:"block",background:"#f8f6f4",borderRadius:6,border:"1px solid #e0dcd0"}}>
-    <defs><marker id="sh2" viewBox="0 0 6 6" refX={5} refY={3} markerWidth={4} markerHeight={4} orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#888"/></marker></defs>
+  return <svg viewBox={`0 0 ${W} 600`} style={{width:"100%",display:"block",background:"#f8f6f4",borderRadius:8,border:"1px solid #e0dcd0"}}>
+    <defs><marker id="sh2" viewBox="0 0 6 6" refX={5} refY={3} markerWidth={4} markerHeight={4} orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#999"/></marker></defs>
 
     {/* ═══ TITLE ═══ */}
-    <text x={CX} y={18} textAnchor="middle" fill="#333" fontSize={9} fontWeight={600} letterSpacing={2} style={{fontFamily:F}}>MAKING SHERRY</text>
-    <text x={CX} y={30} textAnchor="middle" fill="#999" fontSize={5} style={{fontFamily:F}}>Jerez Triangle · Albariza chalk soil · Poniente wind (cooling Atlantic)</text>
+    <text x={CX} y={20} textAnchor="middle" fill="#333" fontSize={10} fontWeight={600} letterSpacing={2} style={{fontFamily:F}}>MAKING SHERRY</text>
+    <text x={CX} y={34} textAnchor="middle" fill="#999" fontSize={5.5} style={{fontFamily:F}}>Jerez Triangle · Albariza chalk · Poniente wind</text>
 
-    {/* Legend */}
-    <rect x={W-90} y={10} width={10} height={8} rx={2} fill="#eef2f7" stroke="#a0aab8" strokeWidth={.4}/>
-    <text x={W-77} y={16} fill="#999" fontSize={4.5} style={{fontFamily:F}}>process</text>
-    <rect x={W-90} y={22} width={10} height={8} rx={4} fill="#fdf6d8" stroke="#d0c880" strokeWidth={.4}/>
-    <text x={W-77} y={28} fill="#999" fontSize={4.5} style={{fontFamily:F}}>input / output</text>
+    {/* ═══ TOP: Palomino base wine ═══ */}
+    {pill(CX-60,48,120,22,["Palomino grapes"],"#fceabb","#bfa030")}
+    {ar(CX,70,CX,82)}
+    {box(CX-70,82,140,24,["ferment to complete","dryness"])}
+    {ar(CX,106,CX,118)}
+    {pill(CX-55,118,110,24,["DRY white wine"],"#fceabb","#bfa030")}
+    {ar(CX,142,CX,154)}
+    {box(CX-60,154,120,22,["first classification"])}
 
-    {/* ═══════════════════════════════════════════════════ */}
-    {/*  SECTION 1: TWO INPUT COLUMNS (y 40–160)           */}
-    {/* ═══════════════════════════════════════════════════ */}
+    {/* ═══ PX SIDE CALLOUT ═══ */}
+    <rect x={12} y={48} width={108} height={86} rx={6} fill="#fdf8e8" stroke="#d0c880" strokeWidth={.5}/>
+    <text x={66} y={64} textAnchor="middle" fill="#3B1F00" fontSize={6.5} fontWeight={700} style={{fontFamily:F}}>PX (separate path)</text>
+    <text x={66} y={78} textAnchor="middle" fill="#666" fontSize={5} style={{fontFamily:F}}>Sun-dried PX grapes</text>
+    <text x={66} y={90} textAnchor="middle" fill="#666" fontSize={5} style={{fontFamily:F}}>→ partial ferment</text>
+    <text x={66} y={102} textAnchor="middle" fill="#666" fontSize={5} style={{fontFamily:F}}>→ fortify to 17%</text>
+    <text x={66} y={114} textAnchor="middle" fill="#666" fontSize={5} style={{fontFamily:F}}>→ oxidative solera</text>
+    <text x={66} y={128} textAnchor="middle" fill="#802020" fontSize={5.5} fontWeight={700} style={{fontFamily:F}}>Extremely sweet</text>
 
-    {/* PX Column (left) */}
-    {io(PXC-55,44,110,20,["sun-dried PX grapes"],true)}
-    {ar(PXC,64,PXC,72)}
-    {proc(PXC-50,72,100,18,["destem and crush"])}
-    {ar(PXC,90,PXC,98)}
-    {proc(PXC-35,98,70,18,["press"])}
-    {ar(PXC,116,PXC,124)}
-    {proc(PXC-60,124,120,18,["partial fermentation"])}
-    {ar(PXC,142,PXC,150)}
-    {proc(PXC-65,150,130,18,["fortification to 17% abv"])}
-    {ar(PXC,168,PXC,178)}
+    {/* ═══ THE SPLIT: fortification level determines pathway ═══ */}
+    {bend("spL",`M${CX-30},176 L${CX-30},192 L${OLO},192 L${OLO},206`)}
+    {bend("spR",`M${CX+30},176 L${CX+30},192 L${FIN},192 L${FIN},206`)}
 
-    {/* Palomino Column (right) */}
-    {io(PALC-55,44,110,20,["Palomino grapes"],true)}
-    {ar(PALC,64,PALC,72)}
-    {proc(PALC-50,72,100,18,["destem and crush"])}
-    {ar(PALC,90,PALC,98)}
-    {proc(PALC-35,98,70,18,["press"])}
-    {ar(PALC,116,PALC,124)}
-    {proc(PALC-60,124,120,18,["alcoholic fermentation"])}
-    {ar(PALC,142,PALC,155)}
+    {/* ═══ LEFT: OXIDATIVE PATHWAY ═══ */}
+    <rect x={36} y={196} width={208} height={190} rx={8} fill="#f8f0e8" fillOpacity={.5} stroke="#c8b090" strokeWidth={.5}/>
+    <text x={OLO} y={216} textAnchor="middle" fill="#8B4513" fontSize={8} fontWeight={700} style={{fontFamily:F}}>OXIDATIVE</text>
+    <text x={OLO} y={230} textAnchor="middle" fill="#999" fontSize={5.5} style={{fontFamily:F}}>Fortified to ~17% ABV → no flor</text>
 
-    {/* ═══════════════════════════════════════════════════ */}
-    {/*  SECTION 2: CENTRAL NODE (y 155–210)                */}
-    {/* ═══════════════════════════════════════════════════ */}
+    {box(OLO-60,240,120,22,["oxidative ageing","in solera"],"#f0e8e0","#8B4513")}
+    {ar(OLO,262,OLO,278)}
 
-    {io(CX-55,155,110,22,["dry white wine"],true)}
-    {ar(CX,177,CX,186)}
-    {proc(CX-55,186,110,20,["first classification"])}
+    {/* Oloroso output */}
+    {style(OLO-44,278,88,28,["OLOROSO","naturally DRY"],"#8B4513")}
 
-    {/* Split arrows */}
-    {bend("spL",`M${CX-30},206 L${CX-30},218 L${OLOC},218 L${OLOC},230`)}
-    <text x={CX-70} y={216} textAnchor="middle" fill="#8B4513" fontSize={6.5} fontWeight={700} style={{fontFamily:F}}>← Oloroso</text>
+    {/* → Cream (sweetened) */}
+    {dashbend("crm",`M${OLO-20},306 L${OLO-20},320 L${72},320 L${72},334`)}
+    <text x={OLO-44} y={318} fill="#888" fontSize={4.5} style={{fontFamily:F}}>+ PX =</text>
+    {style(42,334,60,24,["Cream*","(sweet)"],"#8B7355")}
 
-    {bend("spR",`M${CX+30},206 L${CX+30},218 L${FINC},218 L${FINC},230`)}
-    <text x={CX+80} y={216} textAnchor="middle" fill="#DAA520" fontSize={6.5} fontWeight={700} style={{fontFamily:F}}>Fino →</text>
+    {/* → Medium (sweetened, both types) */}
+    {dashbend("med",`M${OLO+20},306 L${OLO+20},320 L${186},320 L${186},334`)}
+    <text x={OLO+36} y={318} fill="#888" fontSize={4.5} style={{fontFamily:F}}>+ PX =</text>
+    {style(152,334,68,24,["Medium*","(bio+oxi, sweet)"],"#B8860B")}
 
-    {/* ═══════════════════════════════════════════════════ */}
-    {/*  SECTION 3: THREE PROCESS COLUMNS (y 178–330)       */}
-    {/* ═══════════════════════════════════════════════════ */}
+    <text x={OLO} y={375} textAnchor="middle" fill="#8B4513" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>Oxidatively aged wines</text>
 
-    {/* PX: oxidative ageing */}
-    {proc(PXC-65,178,130,22,["oxidative ageing","in solera system"])}
-    {ar(PXC,200,PXC,212)}
+    {/* ═══ RIGHT: BIOLOGICAL PATHWAY ═══ */}
+    <rect x={216} y={196} width={208} height={190} rx={8} fill="#fdf8ee" fillOpacity={.5} stroke="#d0c880" strokeWidth={.5}/>
+    <text x={FIN} y={216} textAnchor="middle" fill="#DAA520" fontSize={8} fontWeight={700} style={{fontFamily:F}}>BIOLOGICAL</text>
+    <text x={FIN} y={230} textAnchor="middle" fill="#999" fontSize={5.5} style={{fontFamily:F}}>Fortified to ~15% ABV → flor grows</text>
 
-    {/* Oloroso pathway */}
-    {proc(OLOC-60,230,120,18,["fortification to 17% abv"])}
-    {ar(OLOC,248,OLOC,258)}
-    {io(OLOC-45,258,90,18,["sobretabla"])}
-    {ar(OLOC,276,OLOC,286)}
-    {proc(OLOC-60,286,120,24,["oxidative ageing","in solera system"])}
-    {ar(OLOC,310,OLOC,324)}
+    {box(FIN-60,240,120,22,["biological ageing","in solera (flor)"],"#fdf4e0","#DAA520")}
+    {ar(FIN,262,FIN,278)}
 
-    {/* Fino pathway */}
-    {proc(FINC-60,230,120,18,["fortification to 15% abv"])}
-    {ar(FINC,248,FINC,258)}
-    {io(FINC-45,258,90,18,["sobretabla"])}
-    {ar(FINC,276,FINC,286)}
-    {proc(FINC-60,286,120,24,["biological ageing","in solera system"])}
-    {ar(FINC,310,FINC,324)}
+    {/* Fino / Manzanilla output */}
+    {style(FIN-54,278,108,28,["FINO / MANZANILLA","DRY, pale, yeasty"],"#DAA520")}
 
-    {/* Solera labels */}
-    <text x={OLOC-68} y={302} textAnchor="end" fill="#8B4513" fontSize={5} fontStyle="italic" style={{fontFamily:F}}>Solera ←</text>
-    <text x={FINC+68} y={302} textAnchor="start" fill="#DAA520" fontSize={5} fontStyle="italic" style={{fontFamily:F}}>→ Solera</text>
+    {/* → Pale Cream (sweetened) */}
+    {dashbend("pcr",`M${FIN+30},306 L${FIN+30},320 L${388},320 L${388},334`)}
+    <text x={FIN+52} y={318} fill="#888" fontSize={4.5} style={{fontFamily:F}}>+ RCGM =</text>
+    {style(355,334,66,24,["Pale Cream","(sweet)"],"#E8D088")}
 
-    {/* ═══════════════════════════════════════════════════ */}
-    {/*  BRANCHING TO SWEETENED/BRIDGED STYLES (y 324–420)  */}
-    {/* ═══════════════════════════════════════════════════ */}
+    <text x={FIN} y={375} textAnchor="middle" fill="#DAA520" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>Biologically aged wines</text>
 
-    {/* Oloroso → Cream (add PX, branch left) */}
-    {bend("oCr",`M${OLOC-20},324 L${OLOC-20},342 L${105},342 L${105},360`)}
-    <text x={OLOC-45} y={338} textAnchor="middle" fill="#777" fontSize={4.5} style={{fontFamily:F}}>+ add PX</text>
+    {/* ═══ AMONTILLADO BRIDGE ═══ */}
+    <rect x={154} y={394} width={152} height={50} rx={6} fill="#fff" stroke="#DAA520" strokeWidth={.7}/>
+    {dashbend("amo1",`M${FIN-20},306 L${FIN-20},330 L${CX},330 L${CX},394`)}
+    <text x={FIN-46} y={326} fill="#888" fontSize={5} style={{fontFamily:F}}>flor dies →</text>
+    <text x={CX} y={410} textAnchor="middle" fill="#DAA520" fontSize={7} fontWeight={700} style={{fontFamily:F}}>AMONTILLADO</text>
+    <text x={CX} y={424} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>Starts biological → flor dies → refortify to 17%</text>
+    <text x={CX} y={436} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>→ oxidative ageing. BOTH types. DRY.</text>
 
-    {/* Oloroso → straight down */}
-    {ar(OLOC,324,OLOC,360)}
+    {/* ═══ SOLERA NOTE ═══ */}
+    <rect x={16} y={458} width={W-32} height={26} rx={5} fill="#f8f6f0" stroke="#e0dcd0" strokeWidth={.4}/>
+    <text x={CX} y={472} textAnchor="middle" fill="#333" fontSize={6.5} fontWeight={600} style={{fontFamily:F}}>SOLERA SYSTEM — all styles</text>
+    <text x={CX} y={483} textAnchor="middle" fill="#777" fontSize={5} style={{fontFamily:F}}>Sobretabla → Criadera → Solera (oldest). Fractional blending. Never fully emptied.</text>
 
-    {/* Oloroso → Medium (add PX, branch right) */}
-    {bend("oMd",`M${OLOC+25},324 L${OLOC+25},342 L${255},342 L${255},360`)}
-    <text x={OLOC+55} y={338} textAnchor="middle" fill="#777" fontSize={4.5} style={{fontFamily:F}}>+ add PX</text>
+    {/* ═══ BOTTOM KEY ═══ */}
+    <rect x={16} y={496} width={W-32} height={46} rx={5} fill="#fde8e8"/>
+    <text x={CX} y={511} textAnchor="middle" fill="#802020" fontSize={6} fontWeight={700} style={{fontFamily:F}}>KEY: Fortification level = pathway</text>
+    <text x={CX} y={525} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>~15% → flor grows (biological) · ~17% → flor dies (oxidative) · ALL base wine is DRY</text>
+    <text x={CX} y={538} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>Dashed lines = sweetened commercial styles (PX, RCGM or sugar added after ageing)</text>
 
-    {/* Amontillado bridge: bio → flor dies → oxidative */}
-    {bend("amo",`M${FINC-15},324 L${FINC-15},342 L${318},342 L${318},356`)}
-    <text x={FINC-50} y={334} textAnchor="middle" fill="#777" fontSize={4.5} style={{fontFamily:F}}>allow flor</text>
-    <text x={FINC-50} y={342} textAnchor="middle" fill="#777" fontSize={4.5} style={{fontFamily:F}}>to die out</text>
+    <text x={CX} y={560} textAnchor="middle" fill="#bbb" fontSize={4} fontStyle="italic" style={{fontFamily:F}}>* Legislation may change requirements for Medium and Cream classifications</text>
 
-    {/* Amontillado refortification + oxidative */}
-    {proc(290,356,56,20,["refortification","to 17% abv"])}
-    {ar(318,376,318,386)}
-    {proc(286,386,64,24,["oxidative ageing","in solera system"])}
-    {ar(318,410,318,424)}
-
-    {/* Fino straight down */}
-    {ar(FINC,324,FINC,360)}
-
-    {/* Fino → Pale Cream (add RCGM) */}
-    {bend("fPc",`M${FINC+20},324 L${FINC+20},342 L${500},342 L${500},360`)}
-    <text x={FINC+55} y={338} textAnchor="middle" fill="#777" fontSize={4.5} style={{fontFamily:F}}>+ add RCGM</text>
-
-    {/* ═══════════════════════════════════════════════════ */}
-    {/*  FINAL STYLE OUTPUTS (y 360–460)                    */}
-    {/* ═══════════════════════════════════════════════════ */}
-
-    {/* Group 1: Oxidatively aged (left) */}
-    <rect x={8} y={208} width={160} height={244} rx={6} fill="#fdf8e0" fillOpacity={.4} stroke="#d0c880" strokeWidth={.5}/>
-    <text x={88} y={448} textAnchor="middle" fill="#8B4513" fontSize={5.5} fontWeight={700} style={{fontFamily:F}}>Oxidatively aged wines</text>
-
-    {fin(18,214,56,24,["PX","(sweet)"],"#3B1F00")}
-    <text x={46} y={246} textAnchor="middle" fill="#802020" fontSize={5} fontWeight={700} style={{fontFamily:F}}>SWEET</text>
-
-    {fin(16,362,82,28,["Cream*","Oloroso + PX"],"#8B7355")}
-    {fin(102,362,60,28,["Oloroso","(dry)"],"#8B4513")}
-
-    {/* Group 2: Both bio + oxi (centre) */}
-    <rect x={218} y={356} width={128} height={100} rx={6} fill="#fff" stroke="#c0a840" strokeWidth={.5}/>
-    <text x={282} y={448} textAnchor="middle" fill="#8B6914" fontSize={5} fontWeight={600} style={{fontFamily:F}}>Wines aged biologically</text>
-    <text x={282} y={457} textAnchor="middle" fill="#8B6914" fontSize={5} fontWeight={600} style={{fontFamily:F}}>and oxidatively</text>
-
-    {fin(226,362,60,28,["Medium*","(sweet)"],"#B8860B")}
-    {fin(294,426,44,24,["Amontillado"],"#DAA520")}
-
-    {/* Group 3: Biologically aged (right) */}
-    <rect x={365} y={356} width={186} height={100} rx={6} fill="#fdf8e0" fillOpacity={.4} stroke="#d0c880" strokeWidth={.5}/>
-    <text x={458} y={448} textAnchor="middle" fill="#DAA520" fontSize={5.5} fontWeight={700} style={{fontFamily:F}}>Biologically aged wines</text>
-
-    {fin(375,362,76,28,["Fino /","Manzanilla"],"#DAA520")}
-    {fin(465,362,76,28,["Pale Cream","(sweet)"],"#E8D088")}
-
-    {/* ═══════════════════════════════════════════════════ */}
-    {/*  NOTES & EXAM POINTS (y 465–680)                    */}
-    {/* ═══════════════════════════════════════════════════ */}
-
-    <text x={CX} y={478} textAnchor="middle" fill="#aaa" fontSize={4.2} fontStyle="italic" style={{fontFamily:F}}>* New legislation planned: Medium wines may no longer need both ageing types; Cream need not show purely oxidative characteristics.</text>
-
-    {/* Solera bar */}
-    <rect x={10} y={492} width={540} height={30} rx={4} fill="#f8f6f0" stroke="#e0dcd0" strokeWidth={.4}/>
-    <text x={CX} y={504} textAnchor="middle" fill="#333" fontSize={6.5} fontWeight={600} style={{fontFamily:F}}>SOLERA SYSTEM — applies to all Sherry styles</text>
-    <text x={CX} y={516} textAnchor="middle" fill="#777" fontSize={5} style={{fontFamily:F}}>Sobretabla (new wine) → Criadera (younger) → … → Solera (oldest for bottling). Fractional blending. Never fully emptied.</text>
-
-    {/* Key exam points */}
-    <rect x={10} y={530} width={540} height={100} rx={4} fill="#fde8e8"/>
-    <text x={CX} y={545} textAnchor="middle" fill="#802020" fontSize={6.5} fontWeight={700} style={{fontFamily:F}}>⚠ KEY EXAM POINTS</text>
-    <text x={CX} y={560} textAnchor="middle" fill="#555" fontSize={5} style={{fontFamily:F}}>ALL Sherry starts DRY. Spirit added AFTER fermentation. Palomino = dry styles. PX & Muscat of Alexandria = sweet.</text>
-    <text x={CX} y={573} textAnchor="middle" fill="#555" fontSize={5} style={{fontFamily:F}}>Oloroso is NATURALLY DRY despite dark colour. Cream = Oloroso + sweetening (PX). Not all dark Sherries are sweet!</text>
-    <text x={CX} y={586} textAnchor="middle" fill="#555" fontSize={5} style={{fontFamily:F}}>Amontillado = BOTH ageing types (biological → flor dies → oxidative). Manzanilla = Fino from Sanlúcar de Barrameda ONLY.</text>
-    <text x={CX} y={599} textAnchor="middle" fill="#555" fontSize={5} style={{fontFamily:F}}>Fortification level determines pathway: ~15% → flor grows (biological). ~17% → flor cannot survive (oxidative).</text>
-    <text x={CX} y={612} textAnchor="middle" fill="#555" fontSize={5} style={{fontFamily:F}}>Sweetened commercial styles: Cream (Oloroso + PX), Pale Cream (Fino + RCGM), Medium (bio+oxi + PX).</text>
   </svg>;
 }
