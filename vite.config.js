@@ -47,12 +47,7 @@ export default defineConfig({
   ],
   build: {
     sourcemap: false,
-    minify: 'terser',
-    terserOptions: {
-      compress: { drop_debugger: true },
-      mangle: { safari10: true },
-      format: { comments: false },
-    },
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         chunkFileNames: 'assets/[hash].js',
