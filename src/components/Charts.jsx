@@ -4,50 +4,169 @@
 const F="'Crimson Text',Georgia,serif";
 
 export function MethodChart(){
-  const B="#4682B4",G="#2E8B57",Y="#B8860B";
-  const bx=(x,y,w,h,lines,f,s,sw)=><g key={lines.join("")+x}>
-    <rect x={x} y={y} width={w} height={h} rx={3} fill={f} stroke={s} strokeWidth={sw||.5}/>
-    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*9} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={5} style={{fontFamily:F}}>{l}</text>)}
+  const proc=(x,y,w,h,lines)=><g key={"p"+x+","+y}>
+    <rect x={x} y={y} width={w} height={h} rx={3} fill="#eef2f0" stroke="#a0b0a8" strokeWidth={.5}/>
+    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*7} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={3.8} style={{fontFamily:F}}>{l}</text>)}
   </g>;
-  const ar=(x1,y1,x2,y2)=><line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#ccc" strokeWidth={.6} markerEnd="url(#sa)"/>;
-  const H=26;
-  return <svg viewBox="0 0 360 210" style={{width:"100%",display:"block",background:"#f8fafc",borderRadius:6,border:"1px solid #e0e4e8"}}>
-    <defs><marker id="sa" viewBox="0 0 6 6" refX={5} refY={3} markerWidth={4} markerHeight={4} orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#ccc"/></marker></defs>
-    <text x={180} y={12} textAnchor="middle" fill="#333" fontSize={7} fontWeight={600} letterSpacing={1.5} style={{fontFamily:F}}>SPARKLING METHODS COMPARED</text>
-    <rect x={0} y={18} width={360} height={54} fill="#fff"/>
-    <text x={6} y={29} fill={B} fontSize={6} fontWeight={700} style={{fontFamily:F}}>TRADITIONAL</text>
-    <text x={6} y={37} fill="#999" fontSize={4.2} style={{fontFamily:F}}>Champagne, Cava, Crémant, Franciacorta</text>
-    {bx(6,41,40,H,["Base","wine"],"#fff","#ccc")}{ar(47,54,52,54)}
-    {bx(54,41,40,H,["+Yeast","+Sugar"],"#fff","#ccc")}{ar(95,54,100,54)}
-    {bx(102,41,50,H,["2nd ferm","IN BOTTLE"],"#dde8f8",B,1)}{ar(153,54,158,54)}
-    {bx(160,41,50,H,["Lees ageing","AUTOLYSIS"],"#e8f0ff",B,.8)}{ar(211,54,216,54)}
-    {bx(218,41,38,H,["Riddling"],"#fff","#ccc")}{ar(257,54,262,54)}
-    {bx(264,41,40,H,["Disgorge"],"#fff","#ccc")}{ar(305,54,310,54)}
-    {bx(312,41,40,H,["Dosage"],"#fff","#ccc")}
-    <rect x={0} y={74} width={360} height={54} fill="#f4f8f4"/>
-    <text x={6} y={85} fill={G} fontSize={6} fontWeight={700} style={{fontFamily:F}}>TANK / CHARMAT</text>
-    <text x={6} y={93} fill="#999" fontSize={4.2} style={{fontFamily:F}}>Prosecco, Asti, most Sekt</text>
-    {bx(6,97,40,H,["Base","wine"],"#fff","#ccc")}{ar(47,110,52,110)}
-    {bx(54,97,40,H,["+Yeast","+Sugar"],"#fff","#ccc")}{ar(95,110,100,110)}
-    {bx(102,97,50,H,["2nd ferm","IN TANK"],"#e4f4e8",G,1)}{ar(153,110,158,110)}
-    {bx(160,97,50,H,["Filtered","under pressure"],"#fff","#ccc")}{ar(211,110,216,110)}
-    {bx(218,97,50,H,["Bottled","directly"],"#fff","#ccc")}
-    <rect x={0} y={130} width={360} height={54} fill="#fdfaf4"/>
-    <text x={6} y={141} fill={Y} fontSize={6} fontWeight={700} style={{fontFamily:F}}>TRANSFER</text>
-    <text x={6} y={149} fill="#999" fontSize={4.2} style={{fontFamily:F}}>Some New World, large-format</text>
-    {bx(6,153,40,H,["Base","wine"],"#fff","#ccc")}{ar(47,166,52,166)}
-    {bx(54,153,40,H,["+Yeast","+Sugar"],"#fff","#ccc")}{ar(95,166,100,166)}
-    {bx(102,153,50,H,["2nd ferm","IN BOTTLE"],"#fdf8e8",Y,1)}{ar(153,166,158,166)}
-    {bx(160,153,50,H,["Empty to","TANK"],"#fdf8e8",Y,.8)}{ar(211,166,216,166)}
-    {bx(218,153,50,H,["Filter &","re-bottle"],"#fff","#ccc")}
-    <rect x={0} y={186} width={360} height={24} fill="#f8f8f8"/>
-    <rect x={8} y={191} width={8} height={8} rx={2} fill="#dde8f8" stroke={B} strokeWidth={.6}/>
-    <text x={19} y={197} fill="#666" fontSize={4.2} style={{fontFamily:F}}>Bottle fermentation</text>
-    <rect x={75} y={191} width={8} height={8} rx={2} fill="#fdf8e8" stroke={Y} strokeWidth={.6}/>
-    <text x={86} y={197} fill="#666" fontSize={4.2} style={{fontFamily:F}}>Bottle → then tank (hybrid)</text>
-    <rect x={142} y={191} width={8} height={8} rx={2} fill="#e4f4e8" stroke={G} strokeWidth={.6}/>
-    <text x={153} y={197} fill="#666" fontSize={4.2} style={{fontFamily:F}}>Tank fermentation</text>
-    <text x={228} y={197} fill="#555" fontSize={4} fontWeight={600} style={{fontFamily:F}}>AUTOLYSIS = yeast breakdown → toasty, biscuit</text>
+  const io=(x,y,w,h,lines,accent)=><g key={"i"+x+","+y}>
+    <rect x={x} y={y} width={w} height={h} rx={h/2} fill={accent?"#fceabb":"#fdf6d8"} stroke={accent?"#bfa030":"#d0c880"} strokeWidth={accent?.7:.4}/>
+    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*7} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={3.8} fontWeight={accent?600:400} style={{fontFamily:F}}>{l}</text>)}
+  </g>;
+  const fin=(x,y,w,h,lines,col)=><g key={"f"+x+","+y}>
+    <rect x={x} y={y} width={w} height={h} rx={h/2.5} fill={col+"22"} stroke={col} strokeWidth={.7}/>
+    {lines.map((l,i)=><text key={i} x={x+w/2} y={y+h/2+(i-(lines.length-1)/2)*6.5} textAnchor="middle" dominantBaseline="central" fill="#333" fontSize={3.5} fontWeight={i===0?700:400} style={{fontFamily:F}}>{l}</text>)}
+  </g>;
+  const ar=(x1,y1,x2,y2)=><line key={"a"+x1+","+y1+"-"+x2+","+y2} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#888" strokeWidth={.45} markerEnd="url(#sm)"/>;
+  const bend=(id,d)=><path key={id} d={d} fill="none" stroke="#888" strokeWidth={.45} markerEnd="url(#sm)"/>;
+
+  const W=440, CX=160;
+  /* 6 column centres for final outputs */
+  const C1=32,C2=100,C3=175,C4=245,C5=325,C6=405;
+
+  return <svg viewBox={`0 0 ${W} 540`} style={{width:"100%",display:"block",background:"#f8fafc",borderRadius:6,border:"1px solid #e0e4e8"}}>
+    <defs><marker id="sm" viewBox="0 0 6 6" refX={5} refY={3} markerWidth={3.5} markerHeight={3.5} orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#888"/></marker></defs>
+
+    <text x={CX} y={14} textAnchor="middle" fill="#333" fontSize={7} fontWeight={600} letterSpacing={1.5} style={{fontFamily:F}}>MAKING SPARKLING WINE</text>
+
+    {/* Legend */}
+    <rect x={330} y={8} width={8} height={6} rx={2} fill="#eef2f0" stroke="#a0b0a8" strokeWidth={.3}/>
+    <text x={341} y={13} fill="#999" fontSize={3} style={{fontFamily:F}}>process</text>
+    <rect x={330} y={17} width={8} height={6} rx={3} fill="#fdf6d8" stroke="#d0c880" strokeWidth={.3}/>
+    <text x={341} y={22} fill="#999" fontSize={3} style={{fontFamily:F}}>input / output</text>
+
+    {/* ══ SHARED TOP: Grapes → Press → Juice → 1st Ferm → Base Wine ══ */}
+    {io(CX-40,28,80,14,["grapes"],true)}
+    {ar(CX,42,CX,48)}
+    {proc(CX-50,48,100,18,["press the grapes","and clarify the juice"])}
+    {ar(CX,66,CX,72)}
+    {io(CX-30,72,60,14,["juice"])}
+    {ar(CX,86,CX,92)}
+
+    {/* ── Juice splits: left to 1st fermentation, right branches to Asti paths ── */}
+    {/* Main path: 1st fermentation → base wine */}
+    {proc(CX-40,92,80,16,["first fermentation"])}
+    {ar(CX,108,CX,114)}
+    {io(CX-35,114,70,14,["base wine"])}
+    {ar(CX,128,CX,136)}
+
+    {/* Blending step */}
+    {proc(CX-35,136,70,14,["blending"])}
+
+    {/* ── Right branch from juice: Asti + Carbonated paths ── */}
+    {/* Juice → chill juice (for carbonated) */}
+    {bend("jCh",`M${CX+30},79 L280,79 L280,92`)}
+    {proc(255,92,50,16,["chill juice"])}
+    {ar(280,108,280,118)}
+    {io(255,118,50,14,["store juice"])}
+    {ar(280,132,280,140)}
+    {proc(252,140,56,16,["partial","fermentation"])}
+    {ar(280,156,280,168)}
+
+    {/* Juice → partial fermentation (for Asti) */}
+    {bend("jAs",`M${CX+30},79 L365,79 L365,92`)}
+    {proc(335,92,60,16,["partial","fermentation"])}
+    {ar(365,108,365,118)}
+    {io(332,118,66,14,["partially fermented","juice bottled"])}
+    {ar(365,132,365,148)}
+
+    {/* ══ MIDDLE: Branch from base wine/blending to 4 paths ══ */}
+    {/* liqueur de tirage label */}
+    {io(CX-15,154,90,12,["liqueur de tirage"])}
+
+    {/* Traditional: bottle → 2nd ferm in bottle */}
+    {bend("bTr",`M${CX-35},143 L${C1},143 L${C1},170`)}
+    {proc(C1-30,170,60,14,["bottle"])}
+    {ar(C1,184,C1,190)}
+    {proc(C1-38,190,76,16,["second fermentation","in bottle"])}
+    {ar(C1,206,C1,214)}
+    {proc(C1-38,214,76,16,["store wine on","the lees"])}
+    {ar(C1,230,C1,240)}
+
+    {/* Traditional → riddle */}
+    {proc(C1-26,240,52,14,["riddle"])}
+    {ar(C1,254,C1,262)}
+    {proc(C1-26,262,52,14,["disgorge"])}
+    {ar(C1,276,C1,282)}
+
+    {/* liqueur d'expédition for Traditional */}
+    {io(C1+30,272,52,10,["liqueur","d'expédition"])}
+    {bend("leTr",`M${C1+30},277 L${C1+26},277`)}
+
+    {proc(C1-20,282,40,14,["cork"])}
+    {ar(C1,296,C1,306)}
+
+    {/* Transfer: also starts from bottle */}
+    {bend("bTf",`M${CX-35},143 L${C2},143 L${C2},170`)}
+    {proc(C2-30,170,60,14,["bottle"])}
+    {ar(C2,184,C2,190)}
+    {proc(C2-38,190,76,16,["second fermentation","in bottle"])}
+    {ar(C2,206,C2,214)}
+    {proc(C2-38,214,76,16,["store wine on","the lees"])}
+    {ar(C2,230,C2,240)}
+
+    {/* Transfer → transfer to tanks */}
+    {proc(C2-38,240,76,16,["transfer wine","into tanks"])}
+    {ar(C2,256,C2,264)}
+    {proc(C2-22,264,44,14,["filter"])}
+    {ar(C2,278,C2,286)}
+
+    {/* liqueur d'expédition for Transfer */}
+    {io(C2+30,276,52,10,["liqueur","d'expédition"])}
+    {bend("leTf",`M${C2+30},281 L${C2+22},281`)}
+
+    {proc(C2-22,286,44,14,["bottle"])}
+    {ar(C2,300,C2,306)}
+
+    {/* Tank: 2nd fermentation in tanks */}
+    {bend("bTk",`M${CX+35},143 L${C3},143 L${C3},170`)}
+    {proc(C3-38,170,76,16,["second fermentation","in tanks"])}
+    {ar(C3,186,C3,196)}
+    {proc(C3-22,196,44,14,["filter"])}
+    {ar(C3,210,C3,218)}
+
+    {/* liqueur d'expédition for Tank */}
+    {io(C3+28,210,52,10,["liqueur","d'expédition"])}
+    {bend("leTk",`M${C3+28},215 L${C3+22},215`)}
+
+    {proc(C3-22,218,44,14,["bottle"])}
+    {ar(C3,232,C3,306)}
+
+    {/* Carbonated: inject CO₂ */}
+    {/* from stored juice → partial ferm → inject CO₂ */}
+    {proc(C4-28,168,56,14,["inject CO₂"])}
+    {bend("cbAr",`M280,168 L${C4},168`)}
+    {ar(C4,182,C4,190)}
+    {proc(C4-22,190,44,14,["filter"])}
+    {ar(C4,204,C4,212)}
+    {proc(C4-22,212,44,14,["bottle"])}
+    {ar(C4,226,C4,306)}
+
+    {/* Asti: chill → filter → bottle */}
+    {proc(C5-22,168,44,14,["chill"])}
+    {bend("asAr",`M280,168 L${C5},162 L${C5},168`)}
+    {ar(C5,182,C5,190)}
+    {proc(C5-22,190,44,14,["filter"])}
+    {ar(C5,204,C5,212)}
+    {proc(C5-22,212,44,14,["bottle"])}
+    {ar(C5,226,C5,306)}
+
+    {/* Ancestral: fermentation continues in bottle */}
+    {proc(C6-38,148,76,16,["fermentation","continues in bottle"])}
+    {ar(C6,164,C6,176)}
+    {proc(C6-38,176,76,16,["riddle and disgorge","(optional)"])}
+    {ar(C6,192,C6,306)}
+
+    {/* ══ FINAL OUTPUT ROW ══ */}
+    {fin(C1-30,308,60,26,["Traditional","method","sparkling wine"],"#4682B4")}
+    {fin(C2-30,308,60,26,["Transfer","method","sparkling wine"],"#B8860B")}
+    {fin(C3-30,308,60,26,["Tank method","sparkling","wine"],"#2E8B57")}
+    {fin(C4-30,308,60,26,["Carbonated","sparkling","wine"],"#999")}
+    {fin(C5-30,308,60,26,["Asti method","sparkling","wine"],"#D4A017")}
+    {fin(C6-30,308,60,26,["Ancestral","method","sparkling wine"],"#9B59B6")}
+
+    {/* ══ KEY NOTES ══ */}
+    <text x={CX} y={350} textAnchor="middle" fill="#555" fontSize={4} fontWeight={600} style={{fontFamily:F}}>AUTOLYSIS = yeast breakdown on lees → biscuit, brioche, toast (Traditional & Transfer only)</text>
+    <text x={CX} y={360} textAnchor="middle" fill="#555" fontSize={4} fontWeight={600} style={{fontFamily:F}}>Asti = ONE fermentation only, stopped early → low alcohol, sweet. Ancestral = Pét-Nat, single fermentation finished in bottle.</text>
   </svg>;
 }
 
