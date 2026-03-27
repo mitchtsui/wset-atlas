@@ -90,9 +90,9 @@ export function MethodChart(){
     })()}
 
     {/* ── 4. CARBONATED ── */}
-    {(() => { const Y=308, C="#888";
+    {(() => { const Y=308, C="#777";
       return <g key="carb">
-        <rect x={12} y={Y} width={W-24} height={52} rx={6} fill="#f6f6f6" stroke={C+"40"} strokeWidth={.5}/>
+        <rect x={12} y={Y} width={W-24} height={52} rx={6} fill="#f4f4f4" stroke="#aaa" strokeWidth={.5}/>
         <text x={22} y={Y+14} fill={C} fontSize={8} fontWeight={700} style={{fontFamily:F}}>CARBONATED</text>
         <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Cheapest sparkling wines</text>
         {box(MID,Y+28,80,20,["inject CO₂","into wine"],C+"20",C)}
@@ -108,13 +108,12 @@ export function MethodChart(){
       return <g key="asti">
         <rect x={12} y={Y} width={W-24} height={58} rx={6} fill="#fdf8ee" stroke={C+"40"} strokeWidth={.5}/>
         <text x={22} y={Y+14} fill={C} fontSize={8} fontWeight={700} style={{fontFamily:F}}>ASTI METHOD</text>
-        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Asti, Moscato d'Asti (Moscato Bianco)</text>
-        <text x={MID} y={Y+36} fill="#555" fontSize={5.5} style={{fontFamily:F}}>Branches from JUICE (before base wine):</text>
-        {box(MID,Y+40,110,20,["ONE fermentation in","sealed tank, STOPPED early"],C+"15",C)}
-        {ar(MID+110,Y+50,MID+118,Y+50)}
-        {box(MID+120,Y+40,52,20,["bottle"],"#f0f3f0")}
-        <text x={MID+198} y={Y+46} fill="#666" fontSize={5} style={{fontFamily:F}}>Low alcohol (5-7%),</text>
-        <text x={MID+198} y={Y+56} fill="#666" fontSize={5} style={{fontFamily:F}}>sweet, grapey, aromatic</text>
+        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Asti, Moscato d'Asti — branches from juice (before base wine)</text>
+        {box(MID,Y+32,110,20,["ONE fermentation in","sealed tank, STOPPED early"],C+"15",C)}
+        {ar(MID+110,Y+42,MID+118,Y+42)}
+        {box(MID+120,Y+32,52,20,["bottle"],"#f0f3f0")}
+        <text x={MID+198} y={Y+38} fill="#666" fontSize={5} style={{fontFamily:F}}>Low alcohol (5-7%),</text>
+        <text x={MID+198} y={Y+48} fill="#666" fontSize={5} style={{fontFamily:F}}>sweet, grapey, aromatic</text>
       </g>;
     })()}
 
@@ -123,13 +122,12 @@ export function MethodChart(){
       return <g key="anc">
         <rect x={12} y={Y} width={W-24} height={58} rx={6} fill="#f8f4fc" stroke={C+"40"} strokeWidth={.5}/>
         <text x={22} y={Y+14} fill={C} fontSize={8} fontWeight={700} style={{fontFamily:F}}>ANCESTRAL (Pét-Nat)</text>
-        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Natural wine producers, various regions</text>
-        <text x={MID} y={Y+36} fill="#555" fontSize={5.5} style={{fontFamily:F}}>Branches from partially fermented juice:</text>
-        {box(MID,Y+40,110,20,["fermentation FINISHES","in sealed bottle"],C+"15",C)}
-        {ar(MID+110,Y+50,MID+118,Y+50)}
-        {box(MID+120,Y+40,78,20,["riddle & disgorge","(optional)"],"#f0f3f0")}
-        <text x={MID+224} y={Y+46} fill="#666" fontSize={5} style={{fontFamily:F}}>Often cloudy, funky.</text>
-        <text x={MID+224} y={Y+56} fill="#666" fontSize={5} style={{fontFamily:F}}>No dosage.</text>
+        <text x={22} y={Y+26} fill="#999" fontSize={5} style={{fontFamily:F}}>Natural wine producers — branches from partially fermented juice</text>
+        {box(MID,Y+32,110,20,["fermentation FINISHES","in sealed bottle"],C+"15",C)}
+        {ar(MID+110,Y+42,MID+118,Y+42)}
+        {box(MID+120,Y+32,78,20,["riddle & disgorge","(optional)"],"#f0f3f0")}
+        <text x={MID+224} y={Y+38} fill="#666" fontSize={5} style={{fontFamily:F}}>Often cloudy, funky.</text>
+        <text x={MID+224} y={Y+48} fill="#666" fontSize={5} style={{fontFamily:F}}>No dosage.</text>
       </g>;
     })()}
 
@@ -275,12 +273,12 @@ export function SherryChart(){
 
     {/* → Cream (sweetened) */}
     {dashbend("crm",`M${OLO-20},306 L${OLO-20},320 L${72},320 L${72},334`)}
-    <text x={OLO-44} y={318} fill="#888" fontSize={4.5} style={{fontFamily:F}}>+ PX =</text>
+    <text x={OLO-44} y={318} fill="#777" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>+ PX =</text>
     {style(42,334,60,24,["Cream*","(sweet)"],"#8B7355")}
 
     {/* → Medium (sweetened, both types) */}
     {dashbend("med",`M${OLO+20},306 L${OLO+20},320 L${186},320 L${186},334`)}
-    <text x={OLO+36} y={318} fill="#888" fontSize={4.5} style={{fontFamily:F}}>+ PX =</text>
+    <text x={OLO+38} y={318} fill="#777" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>+ PX =</text>
     {style(152,334,68,24,["Medium*","(bio+oxi, sweet)"],"#B8860B")}
 
     <text x={OLO} y={375} textAnchor="middle" fill="#8B4513" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>Oxidatively aged wines</text>
@@ -298,7 +296,7 @@ export function SherryChart(){
 
     {/* → Pale Cream (sweetened) */}
     {dashbend("pcr",`M${FIN+30},306 L${FIN+30},320 L${388},320 L${388},334`)}
-    <text x={FIN+52} y={318} fill="#888" fontSize={4.5} style={{fontFamily:F}}>+ RCGM =</text>
+    <text x={FIN+54} y={318} fill="#777" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>+ RCGM =</text>
     {style(355,334,66,24,["Pale Cream","(sweet)"],"#E8D088")}
 
     <text x={FIN} y={375} textAnchor="middle" fill="#DAA520" fontSize={5.5} fontWeight={600} style={{fontFamily:F}}>Biologically aged wines</text>
@@ -306,23 +304,23 @@ export function SherryChart(){
     {/* ═══ AMONTILLADO BRIDGE ═══ */}
     <rect x={154} y={394} width={152} height={50} rx={6} fill="#fff" stroke="#DAA520" strokeWidth={.7}/>
     {dashbend("amo1",`M${FIN-20},306 L${FIN-20},330 L${CX},330 L${CX},394`)}
-    <text x={FIN-46} y={326} fill="#888" fontSize={5} style={{fontFamily:F}}>flor dies →</text>
+    <text x={FIN-44} y={326} fill="#777" fontSize={6} fontWeight={600} style={{fontFamily:F}}>flor dies →</text>
     <text x={CX} y={410} textAnchor="middle" fill="#DAA520" fontSize={7} fontWeight={700} style={{fontFamily:F}}>AMONTILLADO</text>
     <text x={CX} y={424} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>Starts biological → flor dies → refortify to 17%</text>
     <text x={CX} y={436} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>→ oxidative ageing. BOTH types. DRY.</text>
 
     {/* ═══ SOLERA NOTE ═══ */}
-    <rect x={16} y={458} width={W-32} height={26} rx={5} fill="#f8f6f0" stroke="#e0dcd0" strokeWidth={.4}/>
-    <text x={CX} y={472} textAnchor="middle" fill="#333" fontSize={6.5} fontWeight={600} style={{fontFamily:F}}>SOLERA SYSTEM — all styles</text>
-    <text x={CX} y={483} textAnchor="middle" fill="#777" fontSize={5} style={{fontFamily:F}}>Sobretabla → Criadera → Solera (oldest). Fractional blending. Never fully emptied.</text>
+    <rect x={16} y={458} width={W-32} height={30} rx={5} fill="#f8f6f0" stroke="#e0dcd0" strokeWidth={.4}/>
+    <text x={CX} y={473} textAnchor="middle" fill="#333" fontSize={6.5} fontWeight={600} style={{fontFamily:F}}>SOLERA SYSTEM — all styles</text>
+    <text x={CX} y={486} textAnchor="middle" fill="#777" fontSize={5} style={{fontFamily:F}}>Sobretabla → Criadera → Solera (oldest). Fractional blending. Never fully emptied.</text>
 
     {/* ═══ BOTTOM KEY ═══ */}
-    <rect x={16} y={496} width={W-32} height={46} rx={5} fill="#fde8e8"/>
-    <text x={CX} y={511} textAnchor="middle" fill="#802020" fontSize={6} fontWeight={700} style={{fontFamily:F}}>KEY: Fortification level = pathway</text>
-    <text x={CX} y={525} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>~15% → flor grows (biological) · ~17% → flor dies (oxidative) · ALL base wine is DRY</text>
-    <text x={CX} y={538} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>Dashed lines = sweetened commercial styles (PX, RCGM or sugar added after ageing)</text>
+    <rect x={16} y={500} width={W-32} height={46} rx={5} fill="#fde8e8"/>
+    <text x={CX} y={515} textAnchor="middle" fill="#802020" fontSize={6} fontWeight={700} style={{fontFamily:F}}>KEY: Fortification level = pathway</text>
+    <text x={CX} y={529} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>~15% → flor grows (biological) · ~17% → flor dies (oxidative) · ALL base wine is DRY</text>
+    <text x={CX} y={542} textAnchor="middle" fill="#666" fontSize={5.5} style={{fontFamily:F}}>Dashed lines = sweetened commercial styles (PX, RCGM or sugar added after ageing)</text>
 
-    <text x={CX} y={560} textAnchor="middle" fill="#bbb" fontSize={4} fontStyle="italic" style={{fontFamily:F}}>* Legislation may change requirements for Medium and Cream classifications</text>
+    <text x={CX} y={564} textAnchor="middle" fill="#bbb" fontSize={4} fontStyle="italic" style={{fontFamily:F}}>* Legislation may change requirements for Medium and Cream classifications</text>
 
   </svg>;
 }
